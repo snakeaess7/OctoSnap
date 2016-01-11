@@ -52,7 +52,7 @@ public class Album implements Serializable{
      * @return 
      */
     public void save() {
-        // TODO implement here
+        // TODO implementirati serijalizaciju
     }
 
     /**
