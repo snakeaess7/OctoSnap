@@ -9,6 +9,6 @@ package Controller;
  *
  * @author Sanja
  */
-class EnumType {
+enum EnumType {
     
 }
