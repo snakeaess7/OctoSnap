@@ -1,5 +1,6 @@
 package Manager;
 
+import DataElement.Album;
 import java.util.*;
 
 /**
