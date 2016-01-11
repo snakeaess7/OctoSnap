@@ -14,9 +14,9 @@ public class AlbumManager {
     public AlbumManager() {
         this.albums=new HashSet<>();
         //TODO očitava sve stare serializovane Albume iz datoteka
-        //i smješta ih u albums
+        //i smješta ih u albums.
         
-        //treba rješiti update atributa currentAlbum
+        //Treba rješiti update atributa currentAlbum.
     }
 
     /**
