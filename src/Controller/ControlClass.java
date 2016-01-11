@@ -123,3 +123,7 @@ public class ControlClass {
     }
 
 }
+
+enum EnumType {
+    
+}
