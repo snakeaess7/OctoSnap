@@ -16,6 +16,7 @@ public class AlbumManager {
         //TODO očitava sve stare serializovane Albume iz datoteka
         //i smješta ih u albums.
         
+        
         //Treba rješiti update atributa currentAlbum.
     }
 
