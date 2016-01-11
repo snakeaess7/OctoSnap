@@ -12,6 +12,11 @@ public class AlbumManager {
      * Default constructor
      */
     public AlbumManager() {
+        this.albums=new HashSet<>();
+        //TODO očitava sve stare serializovane Albume iz datoteka
+        //i smješta ih u albums
+        
+        //treba rješiti update atributa currentAlbum
     }
 
     /**
@@ -28,16 +33,24 @@ public class AlbumManager {
 
     /**
      * 
+     * @param name
+     * @param description
+     * @return 
      */
-    public void newAlbum() {
-        // TODO implement here
+    public boolean newAlbum(String name, String description) {
+        Album newAlbum=null;
+        if((newAlbum=new Album(name,description))!=null){
+            return this.albums.add(newAlbum);
+        }
+        return false;
     }
 
     /**
      * @param a
+     * @return 
      */
-    public void delete(Album a) {
-        // TODO implement here
+    public boolean delete(Album a) {
+        return (albums.remove(a));
     }
 
 }
