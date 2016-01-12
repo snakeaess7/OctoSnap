@@ -5,7 +5,8 @@ import DataElement.AlbumFilter;
 import java.util.*;
 
 /**
- * 
+ *
+ * @author Sanja
  */
 public class AlbumManager {
 

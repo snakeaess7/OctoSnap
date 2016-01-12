@@ -7,7 +7,8 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * 
+ *
+ * @author Sanja
  */
 public class Album implements Serializable{
     
