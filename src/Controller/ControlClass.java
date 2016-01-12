@@ -1,5 +1,8 @@
+package Controller;
 
-import java.util.*;
+import DataElement.*;
+import Manager.*;
+import serverClient.Client;
 
 /**
  * 
@@ -119,4 +122,8 @@ public class ControlClass {
         // TODO implement here
     }
 
+}
+
+enum EnumType {
+    
 }

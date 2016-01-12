@@ -1,16 +1,31 @@
 package DataElement;
 
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * 
  */
-public class Album {
-
+public class Album implements Serializable{
+    
     /**
-     * Default constructor
+     * Constructor
+     * @param name
+     * @param description
      */
-    public Album() {
+    public Album(String name, String description) {
+        this.date=new Date();
+        
+        if(name!=null)this.name=name;
+        else this.name="Album "+ date.toString() ;
+        
+        if(description!=null)this.description=description;
+        else this.description="";
+        
+        this.photos=new HashSet<>();
     }
 
     /**
@@ -37,30 +52,57 @@ public class Album {
 
     /**
      * 
+     * @return 
      */
-    public void save() {
-        // TODO implement here
+    public boolean save() {
+        ObjectOutputStream out=null;
+        try(){
+        }catch(){
+        }
     }
 
     /**
      * @param p
+     * @return 
      */
-    public void addPhoto(Photo p) {
-        // TODO implement here
+    public boolean addPhoto(Photo p) {
+        if(p!=null)return (photos.add(p));
+        return false;
     }
 
     /**
      * @param p
+     * @return 
      */
-    public void deletePhoto(Photo p) {
-        // TODO implement here
+    public boolean deletePhoto(Photo p) {
+        return (photos.remove(p));
     }
 
     /**
      * 
+     * @param newName
+     * @return 
      */
-    public void rename() {
-        // TODO implement here
+    public boolean rename(String newName) {
+        if(newName!=null) {
+            this.name=newName;
+            return true;
+        }
+        return false;
+    }
+    
+    private File search(){
+        File dir=new File("."+File.separator+);
+        try()
     }
 
+}
+
+class AlbumFilter implements FilenameFilter{
+
+
+    @Override
+    public boolean accept(java.io.File dir, String name) {
+       return name.endsWith(".album");
+    }
 }

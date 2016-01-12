@@ -1,4 +1,7 @@
+package Manager;
 
+import DataElement.Folder;
+import java.io.File;
 import java.util.*;
 
 /**

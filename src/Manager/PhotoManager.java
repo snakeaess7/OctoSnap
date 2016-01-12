@@ -1,4 +1,6 @@
+package Manager;
 
+import DataElement.Photo;
 import java.util.*;
 
 /**
