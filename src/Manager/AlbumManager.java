@@ -1,6 +1,7 @@
 package Manager;
 
 import DataElement.Album;
+import DataElement.AlbumFilter;
 import java.util.*;
 
 /**
@@ -13,11 +14,13 @@ public class AlbumManager {
      */
     public AlbumManager() {
         this.albums=new HashSet<>();
-        //TODO očitava sve stare serializovane Albume iz datoteka
-        //i smješta ih u albums.
+        java.io.File dir=new java.io.File("."+java.io.File.separator+"albums");
+        if(!dir.isDirectory())dir.mkdir();
+        java.io.File [] files= dir.listFiles(new AlbumFilter());
+        for(java.io.File f:files){
+            
+        }
         
-        
-        //Treba rješiti update atributa currentAlbum.
     }
 
     /**
@@ -53,5 +56,15 @@ public class AlbumManager {
     public boolean delete(Album a) {
         return (albums.remove(a));
     }
+
+    /**
+     *
+     * @param currentAlbum
+     */
+    public void setCurrentAlbum(Album currentAlbum) {
+        this.currentAlbum = currentAlbum;
+    }
+    
+    
 
 }
