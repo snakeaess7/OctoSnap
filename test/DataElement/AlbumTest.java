@@ -44,9 +44,10 @@ public class AlbumTest {
     public void testSave() {
         System.out.println("save");
         Album instance = new Album("","");
-        instance.save();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean expResult = true;
+        boolean result = instance.save();
+        assertEquals(expResult, result);
+        
     }
 
     /**
