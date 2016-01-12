@@ -62,7 +62,7 @@ public class AlbumManager {
         this.currentAlbum = currentAlbum;
     }
 
-    private void readAlbums() {
+    public void readAlbums() {
         java.io.File dir = new java.io.File("." + java.io.File.separator + "albums");
         if (!dir.isDirectory()) {
             dir.mkdir();

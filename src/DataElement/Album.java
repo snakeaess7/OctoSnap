@@ -125,4 +125,9 @@ public class Album implements Serializable {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Album{" + "name=" + name + ", date=" + date + ", description=" + description + '}';
+    }
+
 }

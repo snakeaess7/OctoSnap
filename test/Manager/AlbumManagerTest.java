@@ -66,5 +66,26 @@ public class AlbumManagerTest {
         assertEquals(expResult, result);
         
     }
+
+    /**
+     * Test of setCurrentAlbum method, of class AlbumManager.
+     */
+    @Test
+    public void testSetCurrentAlbum() {
+        System.out.println("setCurrentAlbum");
+        Album currentAlbum = null;
+        AlbumManager instance = new AlbumManager();
+        instance.setCurrentAlbum(currentAlbum);
+    }
+
+    /**
+     * Test of readAlbums method, of class AlbumManager.
+     */
+    @Test
+    public void testReadAlbums() {
+        System.out.println("readAlbums");
+        AlbumManager instance = new AlbumManager();
+        instance.readAlbums();
+    }
     
 }
