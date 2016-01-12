@@ -2,6 +2,9 @@ package Manager;
 
 import DataElement.Album;
 import DataElement.AlbumFilter;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.*;
 
 /**
@@ -15,13 +18,8 @@ public class AlbumManager {
      */
     public AlbumManager() {
         this.albums=new HashSet<>();
-        java.io.File dir=new java.io.File("."+java.io.File.separator+"albums");
-        if(!dir.isDirectory())dir.mkdir();
-        java.io.File [] files= dir.listFiles(new AlbumFilter());
-        for(java.io.File f:files){
-            
-        }
-        
+        readAlbums();
+        setCurrentAlbum(null);
     }
 
     /**
@@ -65,6 +63,25 @@ public class AlbumManager {
     public void setCurrentAlbum(Album currentAlbum) {
         this.currentAlbum = currentAlbum;
     }
+
+    private void readAlbums() {
+        java.io.File dir=new java.io.File("."+java.io.File.separator+"albums");
+        if(!dir.isDirectory())dir.mkdir();
+        java.io.File [] files= dir.listFiles(new AlbumFilter());
+        ObjectInputStream in=null;
+        for(java.io.File f:files){
+            try{
+               in=new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)));
+               Album a=null;
+               a=(Album)in.readObject();
+               if(a!=null)albums.add(a);
+               in.close();
+            }catch(Exception e){
+            }
+        }
+    }
+    
+    
     
     
 
