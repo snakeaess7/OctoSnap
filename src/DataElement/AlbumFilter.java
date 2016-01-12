@@ -11,12 +11,11 @@ import java.io.FilenameFilter;
  *
  * @author Sanja
  */
-public class AlbumFilter implements FilenameFilter{
-
+public class AlbumFilter implements FilenameFilter {
 
     @Override
     public boolean accept(java.io.File dir, String name) {
-       return name.endsWith(".album");
+        return name.endsWith(".album");
     }
-    
+
 }

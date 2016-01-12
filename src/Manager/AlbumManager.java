@@ -17,32 +17,30 @@ public class AlbumManager {
      * Default constructor
      */
     public AlbumManager() {
-        this.albums=new HashSet<>();
+        this.albums = new HashSet<>();
         readAlbums();
         setCurrentAlbum(null);
     }
 
     /**
-     * 
+     *
      */
     private Album currentAlbum;
 
     /**
-     * 
+     *
      */
     private Set<Album> albums;
 
-
-
     /**
-     * 
+     *
      * @param name
      * @param description
-     * @return 
+     * @return
      */
     public boolean newAlbum(String name, String description) {
-        Album newAlbum=null;
-        if((newAlbum=new Album(name,description))!=null){
+        Album newAlbum = null;
+        if ((newAlbum = new Album(name, description)) != null) {
             return this.albums.add(newAlbum);
         }
         return false;
@@ -50,7 +48,7 @@ public class AlbumManager {
 
     /**
      * @param a
-     * @return 
+     * @return
      */
     public boolean delete(Album a) {
         return (albums.remove(a));
@@ -65,24 +63,24 @@ public class AlbumManager {
     }
 
     private void readAlbums() {
-        java.io.File dir=new java.io.File("."+java.io.File.separator+"albums");
-        if(!dir.isDirectory())dir.mkdir();
-        java.io.File [] files= dir.listFiles(new AlbumFilter());
-        ObjectInputStream in=null;
-        for(java.io.File f:files){
-            try{
-               in=new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)));
-               Album a=null;
-               a=(Album)in.readObject();
-               if(a!=null)albums.add(a);
-               in.close();
-            }catch(Exception e){
+        java.io.File dir = new java.io.File("." + java.io.File.separator + "albums");
+        if (!dir.isDirectory()) {
+            dir.mkdir();
+        }
+        java.io.File[] files = dir.listFiles(new AlbumFilter());
+        ObjectInputStream in = null;
+        for (java.io.File f : files) {
+            try {
+                in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(f)));
+                Album a = null;
+                a = (Album) in.readObject();
+                if (a != null) {
+                    albums.add(a);
+                }
+                in.close();
+            } catch (Exception e) {
             }
         }
     }
-    
-    
-    
-    
 
 }
