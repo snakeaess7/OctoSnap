@@ -1,7 +1,5 @@
 package DataElement;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
@@ -91,18 +89,15 @@ public class Album implements Serializable{
         return false;
     }
     
-    private File search(){
-        File dir=new File("."+File.separator+);
-        try()
+    private java.io.File search(){
+        java.io.File dir=new java.io.File("."+java.io.File.separator+"albums");
+        if(!dir.isDirectory())dir.mkdir();
+        String albumName=new String(this.date.toString()+".album");
+        java.io.File [] files= dir.listFiles(new AlbumFilter());
+        for(java.io.File f: files){
+            if(f.getName().equals(albumName)) return f;
+        }
+        return null;
     }
 
-}
-
-class AlbumFilter implements FilenameFilter{
-
-
-    @Override
-    public boolean accept(java.io.File dir, String name) {
-       return name.endsWith(".album");
-    }
 }
