@@ -25,12 +25,24 @@ public class Client extends Thread {
     public static final String SEND = "2";
     public static Object SLIKA;
     private Socket sock;
+    private ObjectInputStream in;
+    private PrintWriter out;
 
     {
         try {
-            sock = new Socket(InetAddress.getByName(IP), PORT);
+            sock = new Socket(IP, PORT);
+
+            in
+                    = new ObjectInputStream(
+                            sock.getInputStream());
+            out
+                    = new PrintWriter(
+                            new BufferedWriter(
+                                    new OutputStreamWriter(
+                                            sock.getOutputStream())), true);
+
         } catch (IOException ex) {
-             System.out.println("OFFLINE! \n");
+            System.out.println("OFFLINE! \n");
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -39,51 +51,46 @@ public class Client extends Thread {
     public void run() //throws IllegalAccessError
     {
         login();
-       
         try {
+         
+
             //wait();
-            sleep(3000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
+            sleep(1000);
+
             send();
+            sleep(1000);
+            send();
+            sleep(1000);
+            send();
+           
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     public boolean login() {
-        try (InputStreamReader in
-                = new InputStreamReader(
-                        sock.getInputStream()); PrintWriter out
-                = new PrintWriter(
-                        new BufferedWriter(
-                                new OutputStreamWriter(
-                                        sock.getOutputStream())), true);) {
+        try {
 
             // inicijalizuj izlazni stream
             System.out.println(LOGIN);
             out.println(LOGIN);
 
-            String status = new BufferedReader(in).readLine();
+            String status = (String)in.readObject();
             System.out.println(status);
-            
-              
-            
-            
-            
+
             if ((status != null) && status.contains("uspjesna!")) {
-              //za svaki slučaj
+                //za svaki slučaj
                 return true;
                 /*notifyAll()/*System.out.println(status)*/
             }//Može neki print
             else if (status == null) {
                 System.out.println("Neuspjesan login \n");
-                
+
                 return false;//throw new IllegalAccessError();
 
             }
@@ -92,38 +99,29 @@ public class Client extends Thread {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
         }
         System.out.println("Greska \n");
-       
+
         return false;
     }
 
     public void send() throws IOException, ClassNotFoundException {
-         {
-              System.out.println("1");
-              sock = new Socket(InetAddress.getByName(IP), PORT);
-              System.out.println("1");
-              ObjectInputStream oin
-                = new ObjectInputStream(
-                        sock.getInputStream());
-              System.out.println("1");
-                 PrintWriter out
-                = new PrintWriter(
-                        new BufferedWriter(
-                                new OutputStreamWriter(
-                                        sock.getOutputStream())), true);
-             System.out.println("2");
-             out.println("2");
+        {
             
-             ConcurrentHashMap<String, String> LOGGEDIN = (ConcurrentHashMap<String, String>) oin.readObject();
-             System.out.println(LOGGEDIN.toString());
-             
-             
-             
-             
-             
-    }
+
+
+            out.println("2:TEST");
+            
+
+            ConcurrentHashMap<String, String> LOGGEDIN = (ConcurrentHashMap<String, String>) in.readObject();
+            System.out.println(LOGGEDIN.toString());
+            Socket sock = new Socket(InetAddress.getByName(IP), PORT);
+
+          
+        }
     }
 
 }

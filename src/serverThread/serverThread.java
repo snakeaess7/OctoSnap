@@ -22,6 +22,7 @@ public class serverThread extends Thread {
 
     static {
         File AK = new File("AK");
+       
         File LI = new File("LI");
         try {
             if (AK.exists()) {
@@ -48,69 +49,98 @@ public class serverThread extends Thread {
 
     protected Socket s;
     protected String request;
-
-    public serverThread(Socket s) {
-        this.s = s;
-        start();
-        request = null;
-    }
-
-    @Override
-    public void run() {
-
-        BufferedReader in
+    
+      BufferedReader in
                 = null;
-        PrintWriter out = null;
-        try {
-            // super.run(); //To change body of generated methods, choose Tools | Templates.
-            // inicijalizuj ulazni stream
-            in = new BufferedReader(
+        ObjectOutputStream out = null;
+
+    public serverThread(Socket s) throws IOException {
+       
+       
+        this.s= s;
+        request = null;
+           in = new BufferedReader(
                     new InputStreamReader(
                             s.getInputStream()));
             // inicijalizuj izlazni stream
 
             out
-                    = new PrintWriter(
-                            new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
+                    = new ObjectOutputStream(
+                            s.getOutputStream());
+        
+        start();
+       
+    }
 
-            for (;;) {
-                if (in.ready()){//wasted processing power
-                        request = in.readLine();
-                if(request==null) wait (1000);
+    @Override
+    public void run() {
+        String name = null;
+
+      
+        try {
+            // super.run(); //To change body of generated methods, choose Tools | Templates.
+            // inicijalizuj ulazni stream
+         
+
+            for(;;){
+                  sleep(1000);
+                
+                
+                    request = in.readLine();
+                    if(request!=null){
+
+            System.out.println(LOGGEDIN);;
 
             String req[] = request.split(":");
+
             if (req[0].matches("0")) {
+                name = new String(req[2]);
                 String msg = login(req);
                 LOGGEDIN.put(req[2], s.getInetAddress().toString());
                 System.out.println(msg + "\n");
-                out.println(msg);
+                out.writeObject(msg);
+               
             } else if (req[0].matches("1")) {
+                name = new String(req[2]);
                 String msg = login(req);
                 System.out.println(msg + "\n");
-                out.println(msg);
-            } else if (req[0].matches("2")) {
-                ObjectOutputStream OOS = new ObjectOutputStream(s.getOutputStream());
-                OOS.writeObject(transfer());
-                OOS.close();
+                out.writeObject(msg);
+                
             }
+            else if (req[0].matches("2")) {
+                System.out.println("Zahtjev za slanje korisnika " + req[1] + "\n");
+                out.writeObject(transfer());
+               //wait();//Ne znam riješiti
+                
+               // return;
+                 
+                
+
+            }
+               }
+               
+                  
             }
             //System.out.println(LOGGEDIN.toString());
-             
-        } 
-            
+
         } catch (IOException ex) {
-            Logger.getLogger(serverThread.class.getName()).log(Level.SEVERE, null, ex);
+           LOGGEDIN.remove(name);
+                    System.out.println("diskonekt, preostali "+LOGGEDIN);
+                    
+                    
+                    return;
+            
         } catch (InterruptedException ex) {
-                            System.out.println("interrupted! \n");
+            System.out.println("interrupted! \n");
 
             Logger.getLogger(serverThread.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable ex) {
+            Logger.getLogger(serverThread.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            try {
-                in.close();
-                out.close();
-            } catch (IOException ex) {
-                Logger.getLogger(serverThread.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           
+               // in.close();
+                //out.close();
+            
         }
 
     }
@@ -160,6 +190,7 @@ public class serverThread extends Thread {
     }
 
     private ConcurrentHashMap<String, String> transfer() {
+
         return LOGGEDIN;
 
     }

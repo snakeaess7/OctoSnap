@@ -6,10 +6,14 @@
 package serverClient;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.nio.channels.ServerSocketChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.net.SocketFactory;
 import serverThread.serverThread;
 
 /**
@@ -25,15 +29,19 @@ public class Server {
     public static void main(String[] args) throws IOException {
         
                 ServerSocket ss = new ServerSocket(PORT);
-          
+               
+                
+               
         System.out.println("Server startovan \n");  
-        for(int i=0;;){
+        for(int i=0;;++i){
             
-          
-            Socket sock = ss.accept() ;
-            serverThread st = new serverThread(sock);
            
-            System.out.println("klijent br "+i+"\n");
+            Socket sock = ss.accept();
+             System.out.println(sock.getInetAddress()+"\n");
+            serverThread st = new serverThread(sock);
+            
+           
+            System.out.println("zahtjev br "+i+"\n");
         }
         
         //finally{this.finalize();};
