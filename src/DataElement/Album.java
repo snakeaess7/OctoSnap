@@ -1,5 +1,8 @@
 package DataElement;
 
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
@@ -54,9 +57,18 @@ public class Album implements Serializable{
      */
     public boolean save() {
         ObjectOutputStream out=null;
-        try(){
-        }catch(){
+        java.io.File f=search();
+        if(f==null)f=new java.io.File("."+java.io.File.separator+"albums"+
+                java.io.File.separator+this.date.toString()+".album");
+        try{
+            out=new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f, false)));
+            out.writeObject(this);
+            out.close();
+            return true;
+        }catch(Exception e){
         }
+        return false;
+        
     }
 
     /**
