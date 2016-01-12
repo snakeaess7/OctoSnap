@@ -1,5 +1,8 @@
 package DataElement;
 
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
@@ -51,8 +54,11 @@ public class Album implements Serializable{
      * 
      * @return 
      */
-    public void save() {
-        // TODO implementirati serijalizaciju
+    public boolean save() {
+        ObjectOutputStream out=null;
+        try(){
+        }catch(){
+        }
     }
 
     /**
@@ -84,5 +90,19 @@ public class Album implements Serializable{
         }
         return false;
     }
+    
+    private File search(){
+        File dir=new File("."+File.separator+);
+        try()
+    }
 
+}
+
+class AlbumFilter implements FilenameFilter{
+
+
+    @Override
+    public boolean accept(java.io.File dir, String name) {
+       return name.endsWith(".album");
+    }
 }
