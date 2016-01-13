@@ -41,7 +41,9 @@ public class AlbumManager {
     public boolean newAlbum(String name, String description) {
         Album newAlbum = null;
         if ((newAlbum = new Album(name, description)) != null) {
-            return this.albums.add(newAlbum);
+            if (newAlbum.save()) {
+                return this.albums.add(newAlbum);
+            }
         }
         return false;
     }
@@ -51,6 +53,8 @@ public class AlbumManager {
      * @return
      */
     public boolean delete(Album a) {
+        java.io.File f = a.search();
+        f.delete();
         return (albums.remove(a));
     }
 

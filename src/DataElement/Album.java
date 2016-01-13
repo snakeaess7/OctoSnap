@@ -54,7 +54,7 @@ public class Album implements Serializable {
     /**
      *
      */
-    private Set<Photo> photos;
+    private Set<String> photos;
 
     /**
      *
@@ -84,7 +84,7 @@ public class Album implements Serializable {
      */
     public boolean addPhoto(Photo p) {
         if (p != null) {
-            return (photos.add(p));
+            return (photos.add(p.getUrl()));
         }
         return false;
     }
@@ -94,7 +94,7 @@ public class Album implements Serializable {
      * @return
      */
     public boolean deletePhoto(Photo p) {
-        return (photos.remove(p));
+        return (photos.remove(p.getUrl()));
     }
 
     /**
@@ -110,7 +110,7 @@ public class Album implements Serializable {
         return false;
     }
 
-    private java.io.File search() {
+    public java.io.File search() {
         java.io.File dir = new java.io.File("." + java.io.File.separator + "albums");
         if (!dir.isDirectory()) {
             dir.mkdir();
@@ -125,9 +125,21 @@ public class Album implements Serializable {
         return null;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String[] getPhotos() {
+        return (String[]) photos.toArray();
+    }
+
     @Override
     public String toString() {
-        return "Album{" + "name=" + name + ", date=" + date + ", description=" + description + '}';
+        return "" + name + " (" + date + ")";
     }
 
 }

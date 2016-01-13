@@ -1,43 +1,22 @@
 package DataElement;
 
-import java.util.*;
+import javafx.scene.image.Image;
 
 /**
- * 
+ *
+ * @author Octo Muerto
  */
-public class Photo extends File {
+public class Photo extends Image {
 
-    /**
-     * Default constructor
-     */
-    public Photo() {
+    private String url;
+
+    public Photo(String url) {
+        super(url);
+        this.url = url;
     }
 
-    /**
-     * 
-     */
-    private String name;
-
-    /**
-     * 
-     */
-    private File path;
-
-
-
-
-    /**
-     * 
-     */
-    public void copy() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void rename() {
-        // TODO implement here
+    public String getUrl() {
+        return url;
     }
 
 }
