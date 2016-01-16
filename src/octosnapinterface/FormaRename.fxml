@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="octosnapinterface.FormaRenameController">
+   <children>
+      <TextField fx:id="oldNameTF" layoutX="290.0" layoutY="80.0" />
+      <TextField fx:id="newNameTF" layoutX="290.0" layoutY="168.0" promptText="Give album a new name" />
+      <Label layoutX="108.0" layoutY="85.0" text="Old name" />
+      <Label layoutX="108.0" layoutY="173.0" text="New Name" />
+      <Button fx:id="saveChangesButton" layoutX="180.0" layoutY="320.0" mnemonicParsing="false" onAction="#saveChanges" text="Yes" />
+      <Button fx:id="dontSaveChangesButton" layoutX="359.0" layoutY="320.0" mnemonicParsing="false" onAction="#dontSaveChanges" text="No" />
+      <Label layoutX="115.0" layoutY="259.0" text="Do you want to save the changes you made to this album?" />
+   </children>
+</AnchorPane>
