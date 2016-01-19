@@ -436,6 +436,15 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             }
         });
         
+        choiceBoxChosenAlbum.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Album>() {
+            @Override
+            public void changed(ObservableValue<? extends Album> paramObservableValue, Album paramT1, Album selectedAlbum) {
+
+                destinationAlbum=selectedAlbum;
+
+            }
+        });
+        
         nothingSelectedAction();
     }
 
