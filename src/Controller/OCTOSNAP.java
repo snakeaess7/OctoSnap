@@ -30,6 +30,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javax.imageio.ImageIO;
 import jdk.nashorn.internal.codegen.CompilerConstants;
 
@@ -40,6 +41,7 @@ import jdk.nashorn.internal.codegen.CompilerConstants;
 public class OCTOSNAP extends Application {
 
     public static Stage stage;
+    private static File outputfile;
     public static OCTOSNAP HACK;
 
     @Override
@@ -56,6 +58,9 @@ public class OCTOSNAP extends Application {
                final KeyCombination keyComb1 = new KeyCodeCombination(KeyCode.F,
 
                                     KeyCombination.CONTROL_DOWN);
+               
+               
+               
             
 
 scene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
@@ -74,8 +79,9 @@ scene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
                     LOGINController.SCRR=im;
                     LOGINController.SCR= new WritableImage(width, height);
                     SwingFXUtils.toFXImage(LOGINController.SCRR, LOGINController.SCR);
-                    File outputfile = new File("Screenshot.jpg");
+                    outputfile = new File("Screenshot.jpg");
                     ImageIO.write(im, "jpg", outputfile);
+                    outputfile.deleteOnExit();
                     
                   
                    
@@ -96,6 +102,12 @@ scene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
             
 
             stage.setTitle("OCTOLOGIN");
+            
+            
+           
+            
+            
+            
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
