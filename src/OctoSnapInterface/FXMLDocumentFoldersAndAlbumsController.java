@@ -393,7 +393,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         fileList = new ArrayList();
         ArrayList<String> photoArray= new ArrayList(a.getPhotos());
         for(String s:photoArray){
-            fileList.add(new File(s));
+            String f=s.substring(5);
+            fileList.add(new File(f));
         }
 
     }
