@@ -201,7 +201,8 @@ public class FXMLDocumentPhotoViewController implements Initializable {
     }
 
     @FXML
-    private void sendSCR(ActionEvent event) {FXMLDocumentFoldersAndAlbumsController.THIS.screenshot();
+    private void sendSCR(ActionEvent event) {
+        FXMLDocumentFoldersAndAlbumsController.THIS.screenshot();
     }
 
     @FXML
