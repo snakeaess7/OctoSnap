@@ -147,6 +147,7 @@ public class FXMLDocumentPhotoViewController implements Initializable {
         AnchorPane root = new AnchorPane();
         
         imageV.fitWidthProperty().bind(stage.widthProperty());//fit to screen
+        imageV.fitHeightProperty().bind(stage.widthProperty());
 
         root.getChildren().add(imageV);
 
