@@ -236,7 +236,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         }
         else if(mode==EnumType.ALBUM)
         {
-            //sanjina delete photo metoda
+            deletePhotoFromAlbum();
         }
         else
         {
