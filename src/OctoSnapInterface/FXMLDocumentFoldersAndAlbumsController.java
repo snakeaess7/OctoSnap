@@ -74,7 +74,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     @FXML
     private Label labelOnlineStatus;
     @FXML
-    private ChoiceBox<?> choiceBoxChosenAlbum;
+    private ChoiceBox<Album> choiceBoxChosenAlbum;
     @FXML
     private Button btnAddToAlbum;
     @FXML
