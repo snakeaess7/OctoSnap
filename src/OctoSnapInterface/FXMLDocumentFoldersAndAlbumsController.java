@@ -125,7 +125,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     private int imageViewNumber = 0;
     private final int n = 8;
     ArrayList<File> fileList = new ArrayList();
-    private File currentFolder=null;
+    public static File currentFolder=null;
     File clipboardFolder=null;  //copyFile postavlja pokazivac na sta treba da se kopira, bilo fajl ili folder
     private TreeItem<File> selectedTreeItem;
     
