@@ -87,6 +87,9 @@ public class FXMLDocumentPhotoViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        btnAddToAlbum.setDisable(true);
+        choiceBoxChosenAlbum.setDisable(true);
 
         imageViewMainArea = new ImageView(FXMLDocumentFoldersAndAlbumsController.selectedPhoto);
         imageViewMainArea.setPreserveRatio(true);
