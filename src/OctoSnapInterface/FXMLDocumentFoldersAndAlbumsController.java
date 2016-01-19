@@ -134,7 +134,13 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     
     @FXML
     public void addToAlbum() {
-        // TODO implement here
+        index = listView.getSelectionModel().getSelectedIndex();
+        Album a = albums.get(index);
+        if (selectedPhoto != null) {
+        a.addPhoto(selectedPhoto);
+        a.save();
+        albums.set(index, a);
+        }
     }
 
     @FXML
@@ -372,6 +378,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         listView.setItems(albums);
         listView.setEditable(true);
         description.setEditable(false);
+        
+        choiceBoxChosenAlbum.setItems(albums);
 
         tilepane.setPrefTileHeight(200);
         tilepane.setPrefTileWidth(200);
