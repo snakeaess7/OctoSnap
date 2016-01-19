@@ -43,18 +43,18 @@
                <children>
                   <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                      <Tab text="Folders">
+                      <Tab onSelectionChanged="#setModeFOLDER" text="Folders">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <ChoiceBox fx:id="drive" layoutX="14.0" layoutY="13.0" prefHeight="25.0" prefWidth="169.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="199.0" />
-                                    <Button layoutX="191.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="New Folder" AnchorPane.rightAnchor="110.0" />
+                                    <Button fx:id="btnNewFolder" layoutX="191.0" layoutY="13.0" mnemonicParsing="false" onAction="#createNewFolderButton" prefHeight="25.0" prefWidth="81.0" text="New Folder" AnchorPane.rightAnchor="110.0" />
                                     <Button fx:id="btnChangeDrive" layoutX="279.0" layoutY="13.0" onAction="#showTree" prefHeight="25.0" prefWidth="89.0" text="Change drive" AnchorPane.rightAnchor="13.0" />
                                     <TreeView fx:id="tree" layoutY="50.0" prefHeight="566.0" prefWidth="358.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
                                  </children></AnchorPane>
                         </content>
                       </Tab>
-                      <Tab text="Albums">
+                      <Tab onSelectionChanged="#setModeALBUM" text="Albums">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -106,12 +106,12 @@
       <Separator prefWidth="200.0" />
       <HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Pane minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+            <Pane minWidth="-Infinity" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="100.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
-            <Pane minWidth="-Infinity" prefWidth="250.0" HBox.hgrow="ALWAYS">
+            <Pane minWidth="-Infinity" HBox.hgrow="ALWAYS">
                <children>
                   <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="310.0" />
                   <GridPane layoutX="56.0" minWidth="-Infinity" prefHeight="100.0" prefWidth="199.0">
@@ -125,7 +125,7 @@
                       <RowConstraints maxHeight="60.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="btnSendScreenshot" mnemonicParsing="false" prefHeight="30.0" prefWidth="142.0" text="Send a Screenshot" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnSendScreenshot" mnemonicParsing="false" onAction="#screenshot" prefHeight="30.0" prefWidth="142.0" text="Send a Screenshot" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Label text="Status:" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
                         <Label fx:id="labelOnlineStatus" text="Ofline" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
@@ -139,7 +139,7 @@
                   </GridPane>
                </children>
             </Pane>
-            <Pane minWidth="-Infinity" prefWidth="250.0" HBox.hgrow="ALWAYS">
+            <Pane minWidth="-Infinity" HBox.hgrow="ALWAYS">
                <children>
                   <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="310.0" />
                   <GridPane layoutX="56.0" prefHeight="100.0" prefWidth="199.0">
@@ -157,18 +157,18 @@
                      <children>
                         <Label text="Add to album:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <ChoiceBox fx:id="choiceBoxChosenAlbum" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Button fx:id="btnAddToAlbum" mnemonicParsing="false" prefHeight="39.0" prefWidth="44.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnAddToAlbum" mnemonicParsing="false" onAction="#addToAlbum" prefHeight="39.0" prefWidth="44.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                </children>
             </Pane>
-            <Pane minWidth="-Infinity" prefWidth="250.0">
+            <Pane minWidth="-Infinity">
                <children>
                   <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="250.0" />
                   <GridPane prefHeight="100.0" prefWidth="250.0">
                      <children>
                         <Label fx:id="labelSelectedObject" scaleX="0.9" text="nothing selected" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="btnOpen" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Open" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnOpen" mnemonicParsing="false" onAction="#open" prefHeight="25.0" prefWidth="112.0" text="Open" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="110.0" />
@@ -184,15 +184,15 @@
                   </GridPane>
                </children>
             </Pane>
-            <Pane minWidth="-Infinity" prefWidth="250.0">
+            <Pane minWidth="-Infinity">
                <children>
                   <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="250.0" />
                   <GridPane layoutX="37.0" prefHeight="100.0" prefWidth="176.0">
                      <children>
-                        <Button fx:id="btnCopy" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Copy" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="btnRename" mnemonicParsing="false" onAction="#renameAlbumButton" prefHeight="25.0" prefWidth="60.0" text="Rename" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="btnPaste" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Paste" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteAlbumButton" prefHeight="25.0" prefWidth="60.0" text="Delete" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnCopy" mnemonicParsing="false" onAction="#copy" prefHeight="25.0" prefWidth="60.0" text="Copy" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnRename" mnemonicParsing="false" onAction="#rename" prefHeight="25.0" prefWidth="60.0" text="Rename" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnPaste" mnemonicParsing="false" onAction="#paste" prefHeight="25.0" prefWidth="60.0" text="Paste" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#delete" prefHeight="25.0" prefWidth="60.0" text="Delete" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

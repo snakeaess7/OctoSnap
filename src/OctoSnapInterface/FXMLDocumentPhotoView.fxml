@@ -37,9 +37,13 @@
         </Menu>
       </menus>
     </MenuBar>
-      <AnchorPane minHeight="0.0" VBox.vgrow="ALWAYS">
+      <AnchorPane VBox.vgrow="ALWAYS">
          <children>
-            <ImageView fitHeight="647.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ScrollPane fx:id="scrollPaneMainArea" pannable="true" prefViewportHeight="646.0" prefViewportWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <TilePane fx:id="tilePaneMainArea" prefColumns="1" prefRows="1" />
+               </content>
+            </ScrollPane>
          </children>
       </AnchorPane>
       <Separator prefWidth="200.0" />
@@ -55,13 +59,14 @@
       <Separator prefWidth="200.0" />
       <HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Pane minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+            <Pane minWidth="-Infinity" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="100.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
-            <Pane minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+            <Pane minWidth="-Infinity" HBox.hgrow="ALWAYS">
                <children>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="310.0" />
                   <GridPane layoutX="56.0" minWidth="-Infinity" prefHeight="100.0" prefWidth="199.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.0" minWidth="10.0" prefWidth="62.0" />
@@ -85,11 +90,11 @@
                         <Insets bottom="10.0" top="10.0" />
                      </padding>
                   </GridPane>
-                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="310.0" />
                </children>
             </Pane>
-            <Pane minWidth="-Infinity" prefWidth="250.0" HBox.hgrow="ALWAYS">
+            <Pane minWidth="-Infinity" HBox.hgrow="ALWAYS">
                <children>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="310.0" />
                   <GridPane layoutX="56.0" prefHeight="100.0" prefWidth="199.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="135.0" />
@@ -108,15 +113,15 @@
                         <Button fx:id="btnAddToAlbum" mnemonicParsing="false" prefHeight="39.0" prefWidth="44.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
-                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="310.0" />
                </children>
             </Pane>
-            <Pane minWidth="-Infinity" prefWidth="250.0">
+            <Pane minWidth="-Infinity">
                <children>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="250.0" />
                   <GridPane layoutX="7.0" prefHeight="100.0" prefWidth="236.0">
                      <children>
-                        <Button fx:id="btnRotateLeft" mnemonicParsing="false" text="Rotate left" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="btnRotateRight" mnemonicParsing="false" text="Rotate right" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnRotateLeft" mnemonicParsing="false" onAction="#rotateLeft" text="Rotate left" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnRotateRight" mnemonicParsing="false" onAction="#rotateRight" text="Rotate right" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="109.0" />
@@ -129,15 +134,15 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="250.0" />
                </children>
             </Pane>
-            <Pane minWidth="-Infinity" prefWidth="250.0">
+            <Pane minWidth="-Infinity">
                <children>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="250.0" />
                   <GridPane layoutX="44.0" prefHeight="100.0" prefWidth="176.0">
                      <children>
-                        <Button fx:id="btnFullscreen" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Fullscreen" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="btnClosePicture" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Close Picture" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnFullscreen" mnemonicParsing="false" onAction="#fullscreen" prefHeight="25.0" prefWidth="120.0" text="Fullscreen" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnClosePicture" mnemonicParsing="false" onAction="#closePicture" prefHeight="25.0" prefWidth="120.0" text="Close Picture" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -150,7 +155,6 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="250.0" />
                </children>
             </Pane>
          </children>

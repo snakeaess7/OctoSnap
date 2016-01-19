@@ -8,11 +8,14 @@ package octosnapinterface;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -104,6 +108,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     private ListView<Album> listView;
     @FXML
     private Label labelFullName;
+    @FXML
+    private Button btnNewFolder;
 
     //album promjenljive
     public static ObservableList<Album> albums = FXCollections.observableArrayList();
@@ -112,9 +118,240 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
     //folderi promjenljive
     private int imageViewNumber = 0;
-    private int n = 8;
+    private final int n = 8;
     ArrayList<File> fileList = new ArrayList();
+    private File currentFolder=null;
+    
+    //ostale promjenljive
+    public static Photo selectedPhoto=null;
+    public static Album destinationAlbum=null;
+    private EnumType mode=EnumType.FOLDER;
+    private EnumType selectionType;
+    
+    public static Scene originalScene;
 
+    
+    
+    @FXML
+    public void addToAlbum() {
+        // TODO implement here
+    }
+
+    @FXML
+    private void open() throws IOException {
+        Stage stage;
+        Parent root;
+        //get reference to the button's stage         
+        stage = (Stage) btnOpen.getScene().getWindow();
+        //load up OTHER FXML document
+        root = FXMLLoader.load(getClass().getResource("FXMLDocumentPhotoView.fxml"));
+        
+        //save working scene
+        originalScene=stage.getScene();
+        double originalWidth=stage.getWidth();
+        double originalHeight=stage.getHeight();
+
+        //create a new scene with root and set the stage
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setWidth(originalWidth);
+        stage.setHeight(originalHeight);
+        
+        stage.show();
+    }
+
+    @FXML
+    public void copy() {
+        // TODO implement here
+    }
+
+    @FXML
+    public void paste() {
+        // TODO implement here
+    }
+
+    @FXML
+    public void rename() {
+        // TODO implement here
+    }
+
+    @FXML
+    public void delete() {
+        // TODO implement here
+    }
+
+    @FXML
+    public void screenshot() {
+        
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Controller/IMGSEND.fxml"));
+            
+            
+            Scene scene = new Scene(root);
+            Stage stage= new Stage();
+            
+            stage.setTitle("SEND!");
+            
+            
+            
+            
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentFoldersAndAlbumsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    @FXML
+    public void createNewFolderButton(){
+        // TODO implement here
+    }
+    
+    
+    
+    
+    
+    
+    
+    @FXML
+    public void setModeFOLDER(){
+        //mode seting
+        mode=EnumType.FOLDER;
+        
+        if(currentFolder==null)
+            nothingSelectedAction();
+        else
+            folderSelectedAction();
+    }
+    
+    @FXML
+    public void setModeALBUM(){
+        //mode seting
+        mode=EnumType.ALBUM;
+        
+        if(currentAlbum==null)
+            nothingSelectedAction();
+        else
+            albumSelectedAction();
+    }
+    
+    
+    
+    
+    private void folderSelectedAction(){
+        //actions
+        System.out.println(currentFolder.toPath()); // The newly selected TreeItem.
+        tilepane.getChildren().clear();
+        tilepane.setPrefHeight(200);
+        imageViewNumber = 0;
+        getListAndSize(currentFolder);
+        showNextN();
+        
+        //only if previous selection wasn't of same type
+        if (selectionType != EnumType.FOLDER) {
+
+            //type seting
+            selectionType = EnumType.FOLDER;
+            
+            //buttons seting
+            btnAddToAlbum.setDisable(true);
+            btnOpen.setDisable(true);
+            btnCopy.setDisable(false);
+            btnRename.setDisable(false);
+            btnDelete.setDisable(false);
+            btnLoadNext.setDisable(false);
+            btnLoadPrevious.setDisable(false);
+            btnNewFolder.setDisable(false);
+        }
+        
+        //labels seting
+        labelSelectedObject.setText("Selected folder: " + currentFolder.getName());
+        labelFullName.setText("Selected folder: " + currentFolder.getName());
+    }
+    
+    private void albumSelectedAction(){
+        //actions
+        description.setText(currentAlbum.getDescription());
+        tilepane.getChildren().clear();
+        tilepane.setPrefHeight(200);
+        imageViewNumber = 0;
+        getListAndSize(currentAlbum);
+        showNextN();
+        
+        //only if previous selection wasn't of same type
+        if (selectionType != EnumType.ALBUM) {
+
+            //type seting
+            selectionType = EnumType.ALBUM;
+
+            //buttons seting
+            btnAddToAlbum.setDisable(true);
+            btnOpen.setDisable(true);
+            btnCopy.setDisable(true);
+            btnRename.setDisable(false);
+            btnDelete.setDisable(false);
+            btnLoadNext.setDisable(false);
+            btnLoadPrevious.setDisable(false);
+        }
+        
+        //labels seting
+        labelSelectedObject.setText("Selected album: " + currentAlbum.getName());
+        labelFullName.setText("Selected album: " + currentAlbum.getName());
+    }
+    
+    private void photoSelectedAction(){
+        //only if previous selection wasn't of same type
+        if (selectionType != EnumType.ALBUM) {
+
+            //type seting
+            selectionType=EnumType.PHOTO;
+            
+            
+            //buttons seting
+            if (destinationAlbum != null) {
+                btnAddToAlbum.setDisable(false);
+            }
+            btnOpen.setDisable(false);
+            btnCopy.setDisable(false);
+            btnRename.setDisable(false);
+            btnDelete.setDisable(false);
+        }
+        
+        //labels seting
+        labelSelectedObject.setText("Selected picture: " + selectedPhoto.getName());
+        labelFullName.setText("Selected picture: " + selectedPhoto.getName());
+    }
+    
+    private void nothingSelectedAction(){
+        //actions
+       tilepane.getChildren().clear();
+        
+        //type seting
+        selectionType=null;
+        
+        //buttons seting
+        
+        btnAddToAlbum.setDisable(true);
+        btnOpen.setDisable(true);
+        btnCopy.setDisable(true);
+        btnPaste.setDisable(true);
+        btnRename.setDisable(true);
+        btnDelete.setDisable(true);
+        btnLoadNext.setDisable(true);
+        btnLoadPrevious.setDisable(true);
+        btnNewFolder.setDisable(true);
+        
+        //labels seting
+        labelSelectedObject.setText("nothing selected");
+        labelFullName.setText("nothing selected");
+    }
+    
+    
+    
+    
+    
+    
     public void getListAndSize(File folder) {
         fileList = new ArrayList();
         for (File each : folder.listFiles()) {
@@ -150,13 +387,9 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends TreeItem> paramObservableValue, TreeItem paramT1, TreeItem selectedItem) {
 
-                File currentFolder = new File(selectedItem.getValue().toString());
-                System.out.println(currentFolder.toPath()); // The newly selected TreeItem.
-                tilepane.getChildren().clear();
-                tilepane.setPrefHeight(200);
-                imageViewNumber = 0;
-                getListAndSize(currentFolder);
-                showNextN();
+                currentFolder = new File(selectedItem.getValue().toString());
+                
+                folderSelectedAction();
 
             }
         });
@@ -167,15 +400,13 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             public void changed(ObservableValue<? extends Album> paramObservableValue, Album paramT1, Album selectedAlbum) {
 
                 currentAlbum = selectedAlbum;
-                description.setText(currentAlbum.getDescription());
-                tilepane.getChildren().clear();
-                tilepane.setPrefHeight(200);
-                imageViewNumber = 0;
-                getListAndSize(currentAlbum);
-                showNextN();
+                
+                albumSelectedAction();
 
             }
         });
+        
+        nothingSelectedAction();
     }
 
     @FXML
@@ -183,6 +414,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         TreeItem<File> rootItem = new TreeItem<>(new File(drive.getValue().toString()));
         prosiri(rootItem);
         tree.setRoot(rootItem);
+        nothingSelectedAction();
 
     }
 
@@ -207,9 +439,11 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             tilepane.getChildren().add(imageView);
             //akcija pri selekciji slike
             imageView.setOnMouseClicked(mouseEvent -> {
-                Photo photo = (Photo) imageView.getImage();
-                labelSelectedObject.setText("Selected picture: " + photo.getName());
-                labelFullName.setText("Selected picture: " + photo.getName());
+                selectedPhoto = (Photo) imageView.getImage();
+                
+                //photo selected actions:
+                photoSelectedAction();
+                
             });
         }
         if (end < fileList.size()) {
@@ -249,7 +483,6 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         });
     }
 
-    @FXML
     void renameAlbumButton(ActionEvent event) {
         index = listView.getSelectionModel().getSelectedIndex();
 
@@ -285,7 +518,6 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
     }
 
-    @FXML
     void deleteAlbumButton(ActionEvent event) {
         int index = listView.getSelectionModel().getSelectedIndex();
         java.io.File f = albums.get(index).search();
@@ -317,4 +549,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         }
     }
 
+}
+
+enum EnumType {
+    FOLDER, ALBUM, PHOTO
 }

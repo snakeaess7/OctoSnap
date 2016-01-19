@@ -41,6 +41,10 @@ public class Album implements Serializable {
         this.photos = new HashSet<>();
     }
 
+    public String getName() {
+        return name;
+    }
+    
     /**
      *
      */
