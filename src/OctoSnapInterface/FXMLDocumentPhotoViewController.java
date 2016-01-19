@@ -148,7 +148,7 @@ public class FXMLDocumentPhotoViewController implements Initializable {
         
         imageV.fitWidthProperty().bind(stage.widthProperty());//fit to screen
         imageV.fitHeightProperty().bind(stage.heightProperty());//fit
-        //imageV.setPreserveRatio(true);
+        imageV.setPreserveRatio(true);
 
         root.getChildren().add(imageV);
 
