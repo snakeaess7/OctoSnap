@@ -139,10 +139,11 @@ public class IMGSENDController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             ScrSht.setImage(LOGINController.SCR);
+            if (LOGINController.x!=null){
             LOGINController.x.send();
             if (LOGINController.x.stanje == false) {
-                TEXT.setText("NOT CONNECTED");
-            }
+                TEXT.setText("INVISIBLE");
+            }}else TEXT.setText("NOT LOGGED IN");
             if (LOGGEDIN!=null){
             UserList.getItems().addAll(Collections.list(LOGGEDIN.keys()));}
 
