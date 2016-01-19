@@ -74,7 +74,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     @FXML
     private Label labelOnlineStatus;
     @FXML
-    private ChoiceBox<?> choiceBoxChosenAlbum;
+    private ChoiceBox<Album> choiceBoxChosenAlbum;
     @FXML
     private Button btnAddToAlbum;
     @FXML
@@ -111,7 +111,9 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     private Label labelFullName;
     @FXML
     private Button btnNewFolder;
-
+    @FXML
+    private Button btnCHANGESTATUS;
+    
     //album promjenljive
     public static ObservableList<Album> albums = FXCollections.observableArrayList();
     private Album currentAlbum = null;
@@ -137,7 +139,28 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     
     @FXML
     public void addToAlbum() {
-        // TODO implement here
+        if (destinationAlbum != null) {
+            index = albums.indexOf(destinationAlbum);
+            Album a = albums.get(index);
+            if (selectedPhoto != null) {
+                a.addPhoto(selectedPhoto);
+                a.save();
+                albums.set(index, a);
+
+            }
+
+        }
+    }
+    
+    public void deletePhotoFromAlbum() {
+        index = albums.indexOf(currentAlbum);
+        Album a = albums.get(index);
+        if (selectedPhoto != null) {
+            a.deletePhoto(selectedPhoto);
+            a.save();
+            albums.set(index, a);
+        }
+
     }
 
     @FXML
@@ -405,16 +428,24 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     }
 
     public void getListAndSize(Album a) {
-        fileList = new ArrayList(a.getPhotos());
+        fileList = new ArrayList();
+        ArrayList<String> photoArray= new ArrayList(a.getPhotos());
+        for(String s:photoArray){
+            String f=s.substring(5);
+            fileList.add(new File(f));
+        }
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (Controller.Client.stanje) labelOnlineStatus.setText("ONLINE"); else labelOnlineStatus.setText("OFFLINE");
         readAlbums();
         listView.setItems(albums);
         listView.setEditable(true);
         description.setEditable(false);
+        
+        choiceBoxChosenAlbum.setItems(albums);
 
         tilepane.setPrefTileHeight(200);
         tilepane.setPrefTileWidth(200);
@@ -446,6 +477,15 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
                 currentAlbum = selectedAlbum;
                 
                 albumSelectedAction();
+
+            }
+        });
+        
+        choiceBoxChosenAlbum.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Album>() {
+            @Override
+            public void changed(ObservableValue<? extends Album> paramObservableValue, Album paramT1, Album selectedAlbum) {
+
+                destinationAlbum=selectedAlbum;
 
             }
         });
@@ -538,6 +578,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             } else {
                 FileUtils.copyFileToDirectory(clipboardFolder, whereToCopyFolder); //ako je fajl, samo ga nalijepis u odabrani folder
                 fileList.add(clipboardFolder);
+                btnPaste.setDisable(true);
             }
         }
         refresh();
@@ -644,6 +685,13 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             } catch (Exception e) {
             }
         }
+    }
+
+    @FXML
+    private void CHANGESTATUS(ActionEvent event) {
+        Controller.LOGINController.x.visible();
+     if (Controller.Client.stanje) labelOnlineStatus.setText("ONLINE"); else labelOnlineStatus.setText("OFFLINE");
+    
     }
 
 }

@@ -14,6 +14,6 @@
       <PasswordField fx:id="PWD" layoutX="347.0" layoutY="188.0" promptText="PASSWORD" />
       <CheckBox fx:id="VIS" layoutX="50.0" layoutY="326.0" mnemonicParsing="false" text="Visible?" />
       <TextField fx:id="NAME" layoutX="81.0" layoutY="188.0" promptText="USERNAME" />
-      <Label fx:id="Label" layoutX="81.0" layoutY="138.0" text="Label" />
+      <Label fx:id="Label" blendMode="DIFFERENCE" layoutX="81.0" layoutY="138.0" text="Label" textFill="WHITE" />
    </children>
 </AnchorPane>

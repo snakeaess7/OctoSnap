@@ -116,7 +116,8 @@ public class LOGINController implements Initializable {
         Label.setText(succ);
         System.out.println(succ);
         if (succ.matches("Prijavljeno!")) {
-
+            if(stat.equals("1"))Client.stanje=false;
+            
             try {
                 replaceSceneContent("/OctoSnapInterface/FXMLDocumentFoldersAndAlbums.fxml");
             } catch (Exception ex) {
