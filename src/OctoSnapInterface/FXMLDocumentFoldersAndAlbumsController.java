@@ -122,7 +122,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     ArrayList<File> fileList = new ArrayList();
     public static File currentFolder=null;
     File clipboardFolder=null;  //copyFile postavlja pokazivac na sta treba da se kopira, bilo fajl ili folder
-    private TreeItem<File> selectedTreeItem;
+    public static TreeItem<File> selectedTreeItem;
     
     //ostale promjenljive
     public static Photo selectedPhoto=null;

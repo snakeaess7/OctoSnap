@@ -42,6 +42,9 @@ public void createNewFile(ActionEvent event) {
         Stage stage = (Stage) source.getScene().getWindow();
         File newFolder = new File(FXMLDocumentFoldersAndAlbumsController.currentFolder,newFolderName.getText());
         newFolder.mkdir();
+        TreeItem<File> newTreeItem = new TreeItem<File>(newFolder);
+        FXMLDocumentFoldersAndAlbumsController.selectedTreeItem.getChildren().add(newTreeItem);
+        prosiri(newTreeItem);
         stage.close();
     }
             
