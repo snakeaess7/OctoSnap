@@ -143,6 +143,7 @@ public class IMGSENDController implements Initializable {
             LOGINController.x.send();
             if (LOGINController.x.stanje == false) {
                 TEXT.setText("INVISIBLE");
+                LOGGEDIN.clear();
             }}else TEXT.setText("NOT LOGGED IN");
             if (LOGGEDIN!=null){
             UserList.getItems().addAll(Collections.list(LOGGEDIN.keys()));}

@@ -14,6 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import static octosnapinterface.FXMLDocumentFoldersAndAlbumsController.currentFolder;
+import static octosnapinterface.FXMLDocumentFoldersAndAlbumsController.prosiri;
 
 
 /**
@@ -37,7 +40,6 @@ public void createNewFile(ActionEvent event) {
     if (newFolderName.getText().length()>0) {
          Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
-        
         File newFolder = new File(FXMLDocumentFoldersAndAlbumsController.currentFolder,newFolderName.getText());
         newFolder.mkdir();
         stage.close();

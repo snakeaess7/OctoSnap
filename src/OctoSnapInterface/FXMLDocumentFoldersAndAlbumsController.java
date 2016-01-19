@@ -38,6 +38,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
@@ -50,7 +51,7 @@ import org.apache.commons.io.FileUtils;
  * @author korisnik
  */
 public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
-
+    public static FXMLDocumentFoldersAndAlbumsController THIS;
     private Label label;
     @FXML
     private MenuItem menuItemOpen;
@@ -279,7 +280,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             s.setMinWidth(350);
             s.setMinHeight(176);
             s.show();
-           
+          
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -454,6 +455,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        THIS=this;
         if (Controller.Client.stanje) labelOnlineStatus.setText("ONLINE"); else labelOnlineStatus.setText("OFFLINE");
         readAlbums();
         listView.setItems(albums);
@@ -684,6 +686,10 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             s.setTitle("New Album");
             s.setScene(myScene);
             s.show();
+            
+            
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -726,6 +732,22 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         Controller.LOGINController.x.visible();
      if (Controller.Client.stanje) labelOnlineStatus.setText("ONLINE"); else labelOnlineStatus.setText("OFFLINE");
     
+    }
+
+    @FXML
+    private void showHelp(ActionEvent event) {
+        AnchorPane root = new AnchorPane();
+          Scene scene = new Scene(root);
+           Stage stage = new Stage();
+           stage.setScene(scene);
+           Label help= new Label();
+           help.autosize();
+           help.setWrapText(true);
+           help.setText("HELP: U Bilo kom momentu dok je program u fokusu pritisnuti ctrl+f za slikanje ekrana. Send screenshot traži od servera listu korisnika. Izaberite i pošaljite. \n Kad primate sliku, u slučaju spašavanja slike, sačuva se kao \"SS+broj spašenih slika od pokretanja programa\". Broj se resetuje pri svakom pokretanju i može doći do prepisavanja.");
+           root.getChildren().add(help);
+          stage.show();
+        
+        
     }
 
 }
