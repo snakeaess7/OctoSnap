@@ -36,6 +36,8 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import static octosnapinterface.FXMLDocumentFoldersAndAlbumsController.albums;
+import static octosnapinterface.FXMLDocumentFoldersAndAlbumsController.destinationAlbum;
 
 /**
  * FXML Controller class
@@ -67,7 +69,7 @@ public class FXMLDocumentPhotoViewController implements Initializable {
     @FXML
     private Label labelOnlineStatus;
     @FXML
-    private ChoiceBox<?> choiceBoxChosenAlbum;
+    private ChoiceBox<Album> choiceBoxChosenAlbum;
     @FXML
     private Button btnAddToAlbum;
     @FXML
@@ -95,7 +97,21 @@ public class FXMLDocumentPhotoViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+     choiceBoxChosenAlbum.setItems(albums);
+     
+     choiceBoxChosenAlbum.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Album>() {
+            @Override
+            public void changed(ObservableValue<? extends Album> paramObservableValue, Album paramT1, Album selectedAlbum) {
 
+                destinationAlbum=selectedAlbum;
+               
+
+            }
+        });
+     
+     
+     
+     
         imageViewMainArea = new ImageView(FXMLDocumentFoldersAndAlbumsController.selectedPhoto);
         imageViewMainArea.setPreserveRatio(true);
         imageViewMainArea.setSmooth(true);
@@ -191,5 +207,14 @@ public class FXMLDocumentPhotoViewController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    private void sendSCR(ActionEvent event) {FXMLDocumentFoldersAndAlbumsController.THIS.screenshot();
+    }
+
+    @FXML
+    private void addAlbm(ActionEvent event) {
+    FXMLDocumentFoldersAndAlbumsController.THIS.addToAlbum()
+            ;}
 
 }
