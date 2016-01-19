@@ -42,6 +42,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -121,6 +122,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     private final int n = 8;
     ArrayList<File> fileList = new ArrayList();
     private File currentFolder=null;
+    File clipboardFolder=null;  //copyFile postavlja pokazivac na sta treba da se kopira, bilo fajl ili folder
+    private TreeItem<File> selectedTreeItem;
     
     //ostale promjenljive
     public static Photo selectedPhoto=null;
@@ -162,22 +165,50 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
     @FXML
     public void copy() {
-        // TODO implement here
+        if(selectionType==EnumType.FOLDER)
+        {
+            clipboardFolder = currentFolder;
+            //napomena - setovati paste dugme zavisno od toga da li je ista kopirano - neka bool promjenljiva ili coppy!=null
+        }
+        else
+        {
+            clipboardFolder = new File(selectedPhoto.getUrl());
+        }
+        btnPaste.setDisable(false);
     }
 
     @FXML
     public void paste() {
-        // TODO implement here
+        try {
+            pasteFile(selectedTreeItem);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML
     public void rename() {
-        // TODO implement here
+        if(selectionType==EnumType.ALBUM)
+        {
+            renameAlbum();
+        }
+        else
+        {
+            //ne radimo za fajlove, samo za albume, samo ako ostane vremena
+        }
+        
     }
 
     @FXML
     public void delete() {
-        // TODO implement here
+        if(selectionType==EnumType.ALBUM)
+        {
+            deleteAlbum();
+        }
+        else
+        {
+            //ne radimo za fajlove, samo za albume, samo ako ostane vremena
+        }
     }
 
     @FXML
@@ -388,6 +419,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             public void changed(ObservableValue<? extends TreeItem> paramObservableValue, TreeItem paramT1, TreeItem selectedItem) {
 
                 currentFolder = new File(selectedItem.getValue().toString());
+                selectedTreeItem=selectedItem;
                 
                 folderSelectedAction();
 
@@ -482,8 +514,22 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             }
         });
     }
+    
+    public void pasteFile(TreeItem<File> whereToCopy) throws IOException { //daj metodi odabrani TreeItem.
+        File whereToCopyFolder = new File(whereToCopy.getValue().toString());
+        if (clipboardFolder != null) {
+            if (clipboardFolder.isDirectory()) { //ako kopiras folder, onda trebas osvjeziti treeView, pa zato koristim TreeItem
+                FileUtils.copyDirectoryToDirectory(clipboardFolder, whereToCopyFolder);
+                TreeItem<File> pastedTreeItem = new TreeItem<File>(clipboardFolder);
+                whereToCopy.getChildren().add(pastedTreeItem);
+                prosiri(pastedTreeItem);
+            } else {
+                FileUtils.copyFileToDirectory(clipboardFolder, whereToCopyFolder); //ako je fajl, samo ga nalijepis u odabrani folder
+            }
+        }
+    }
 
-    void renameAlbumButton(ActionEvent event) {
+    void renameAlbum() {
         index = listView.getSelectionModel().getSelectedIndex();
 
         try {
@@ -518,7 +564,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
     }
 
-    void deleteAlbumButton(ActionEvent event) {
+    void deleteAlbum() {
         int index = listView.getSelectionModel().getSelectedIndex();
         java.io.File f = albums.get(index).search();
         if (f.delete()) {
