@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package OctoSnapInterface;
+package octosnapinterface;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+import octosnapinterface.Album;
+import octosnapinterface.Photo;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

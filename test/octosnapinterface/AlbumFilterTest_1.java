@@ -5,8 +5,6 @@
  */
 package octosnapinterface;
 
-import java.io.File;
-import octosnapinterface.AlbumFilter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,20 +35,6 @@ public class AlbumFilterTest {
     
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of accept method, of class AlbumFilter.
-     */
-    @Test
-    public void testAccept() {
-        System.out.println("accept");
-        File dir = null;
-        String name = "";
-        AlbumFilter instance = new AlbumFilter();
-        boolean expResult = false;
-        boolean result = instance.accept(dir, name);
-        assertEquals(expResult, result);
     }
     
 }
