@@ -172,6 +172,17 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
         }
     }
+    
+    public void deletePhotoFromAlbum() {
+        index = albums.indexOf(currentAlbum);
+        Album a = albums.get(index);
+        if (selectedPhoto != null) {
+            a.deletePhoto(selectedPhoto);
+            a.save();
+            albums.set(index, a);
+        }
+
+    }
 
     @FXML
     private void open() throws IOException {
