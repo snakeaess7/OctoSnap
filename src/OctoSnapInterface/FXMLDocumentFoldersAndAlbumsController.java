@@ -208,7 +208,14 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         else if(selectionType==EnumType.FOLDER)
         {
             deleteFolder(selectedTreeItem);
-            
+        }
+        else if(mode==EnumType.ALBUM)
+        {
+            //sanjina delete photo metoda
+        }
+        else
+        {
+            deletePhotoFromFolder();
         }
     }
 
@@ -530,8 +537,10 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
                 prosiri(pastedTreeItem);
             } else {
                 FileUtils.copyFileToDirectory(clipboardFolder, whereToCopyFolder); //ako je fajl, samo ga nalijepis u odabrani folder
+                fileList.add(clipboardFolder);
             }
         }
+        refresh();
     }
     
     private boolean pastePosible(){
@@ -550,6 +559,25 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         File folderToDelete = new File(treeItemToDelete.getValue().toString());
         FileUtils.deleteDirectory(folderToDelete);
         treeItemToDelete.getParent().getChildren().remove(treeItemToDelete);
+    }
+    
+    public void deletePhotoFromFolder() {
+        Photo photoToDelete = selectedPhoto;
+        File fileToDelete = new File(photoToDelete.getUrl().substring(5, photoToDelete.getUrl().length()));
+        fileToDelete.delete();
+        
+        fileList.remove(fileToDelete);
+        refresh();
+        selectedPhoto=null;
+        nothingSelectedAction();
+    }
+    
+    private void refresh(){
+        imageViewNumber -= 8;
+        if (imageViewNumber < 0) {
+            imageViewNumber = 0;
+        }
+        showNextN();
     }
 
     void renameAlbum() {
