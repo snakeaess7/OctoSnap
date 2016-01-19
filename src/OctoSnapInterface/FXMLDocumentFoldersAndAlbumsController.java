@@ -36,6 +36,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -113,6 +114,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     private Button btnNewFolder;
     @FXML
     private Button btnCHANGESTATUS;
+    private ImageView selectedImageView;
     
     ////////////////////////////////////////////////////////////
     File clipboardFolder=null;  //copyFile postavlja pokazivac na sta treba da se kopira, bilo fajl ili folder
@@ -490,12 +492,30 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             tilepane.getChildren().add(imageView);
             //akcija pri selekciji slike
             imageView.setOnMouseClicked(mouseEvent -> {
+                if (selectedImageView!=null)selectedImageView.setBlendMode(BlendMode.SRC_OVER);
                 selectedPhoto = (Photo) imageView.getImage();
-                
+                selectedImageView=imageView;
+                selectedImageView.setBlendMode(BlendMode.COLOR_BURN);
                 //photo selected actions:
                 photoSelectedAction();
                 
-            });
+            }
+            );
+            
+            imageView.setOnMouseEntered(mouseEvent -> {
+                
+                if(imageView.getBlendMode()!=BlendMode.COLOR_BURN)imageView.setBlendMode(BlendMode.DIFFERENCE);
+                
+            }
+            );
+            imageView.setOnMouseExited(mouseEvent -> {
+                
+                if(imageView.getBlendMode()!=BlendMode.COLOR_BURN)imageView.setBlendMode(BlendMode.SRC_OVER);
+                
+            }
+            );
+            
+            
         }
         if (end < fileList.size()) {
             imageViewNumber += n;
