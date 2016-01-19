@@ -392,7 +392,12 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     }
 
     public void getListAndSize(Album a) {
-        fileList = new ArrayList(a.getPhotos());
+        fileList = new ArrayList();
+        ArrayList<String> photoArray= new ArrayList(a.getPhotos());
+        for(String s:photoArray){
+            String f=s.substring(5);
+            fileList.add(new File(f));
+        }
 
     }
 
