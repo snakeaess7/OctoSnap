@@ -156,6 +156,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             a.deletePhoto(selectedPhoto);
             a.save();
             albums.set(index, a);
+            fileList.remove(new File(selectedPhoto.getUrl().substring(5, selectedPhoto.getUrl().length())));
+            refresh();
         }
 
     }

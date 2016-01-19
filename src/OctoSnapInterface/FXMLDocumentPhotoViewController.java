@@ -150,7 +150,7 @@ public class FXMLDocumentPhotoViewController implements Initializable {
         //imageV.setLayoutX(root.getWidth() / 2- imageV.getBoundsInParent());
         //imageV.setLayoutY(root.getHeight() / 2- imageV.getBoundsInParent().get);
         Scene scene = new Scene(root);
-
+        
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
             @Override
