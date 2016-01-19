@@ -168,13 +168,13 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         if(selectionType==EnumType.FOLDER)
         {
             clipboardFolder = currentFolder;
-            //napomena - setovati paste dugme zavisno od toga da li je ista kopirano - neka bool promjenljiva ili coppy!=null
+            btnPaste.setDisable(false);
         }
         else
         {
-            clipboardFolder = new File(selectedPhoto.getUrl());
+            clipboardFolder = new File(selectedPhoto.getUrl().substring(5,selectedPhoto.getUrl().length()));
         }
-        btnPaste.setDisable(false);
+        
     }
 
     @FXML
@@ -200,14 +200,15 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     }
 
     @FXML
-    public void delete() {
+    public void delete() throws IOException {
         if(selectionType==EnumType.ALBUM)
         {
             deleteAlbum();
         }
-        else
+        else if(selectionType==EnumType.FOLDER)
         {
-            //ne radimo za fajlove, samo za albume, samo ako ostane vremena
+            deleteFolder(selectedTreeItem);
+            
         }
     }
 
@@ -295,6 +296,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             btnLoadPrevious.setDisable(false);
             btnNewFolder.setDisable(false);
         }
+        if(pastePosible())btnPaste.setDisable(false);
+        else btnPaste.setDisable(true);
         
         //labels seting
         labelSelectedObject.setText("Selected folder: " + currentFolder.getName());
@@ -320,6 +323,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             btnAddToAlbum.setDisable(true);
             btnOpen.setDisable(true);
             btnCopy.setDisable(true);
+            btnPaste.setDisable(true);
             btnRename.setDisable(false);
             btnDelete.setDisable(false);
             btnLoadNext.setDisable(false);
@@ -333,7 +337,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     
     private void photoSelectedAction(){
         //only if previous selection wasn't of same type
-        if (selectionType != EnumType.ALBUM) {
+        if (selectionType != EnumType.PHOTO) {
 
             //type seting
             selectionType=EnumType.PHOTO;
@@ -345,6 +349,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             }
             btnOpen.setDisable(false);
             btnCopy.setDisable(false);
+            btnPaste.setDisable(true);
             btnRename.setDisable(false);
             btnDelete.setDisable(false);
         }
@@ -527,6 +532,24 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
                 FileUtils.copyFileToDirectory(clipboardFolder, whereToCopyFolder); //ako je fajl, samo ga nalijepis u odabrani folder
             }
         }
+    }
+    
+    private boolean pastePosible(){
+        if(clipboardFolder == null)return false;
+        
+        for (File each : currentFolder.listFiles()) {
+            if (each.getName().equals(clipboardFolder.getName())) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public void deleteFolder(TreeItem<File> treeItemToDelete) throws IOException {
+        File folderToDelete = new File(treeItemToDelete.getValue().toString());
+        FileUtils.deleteDirectory(folderToDelete);
+        treeItemToDelete.getParent().getChildren().remove(treeItemToDelete);
     }
 
     void renameAlbum() {
