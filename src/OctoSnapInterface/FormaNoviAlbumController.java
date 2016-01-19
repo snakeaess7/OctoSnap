@@ -54,10 +54,8 @@ public class FormaNoviAlbumController implements Initializable {
         description = descriptionTA.getText();
         Album newAlbum = null;
         if ((newAlbum = new Album(name, description)) != null) {
-            System.out.println("CP1");
             if (newAlbum.save()) {
                 albums.add(newAlbum);
-                System.out.println("CP2");
             }
         }
         Node source = (Node) event.getSource();

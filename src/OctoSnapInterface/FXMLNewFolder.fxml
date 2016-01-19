@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="176.0" maxWidth="341.0" minHeight="176.0" minWidth="341.0" prefHeight="176.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="octosnapinterface.FXMLNewFolderController">
+   <children>
+      <Button layoutX="71.0" layoutY="130.0" mnemonicParsing="false" onAction="#createNewFile" prefWidth="80.0" text="OK" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="80.0" />
+      <Button layoutX="208.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancel" prefWidth="80.0" text="Cancel" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="80.0" />
+      <Label layoutX="82.0" layoutY="53.0" text="Type in the name of a new folder:" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="81.0" />
+      <TextField fx:id="newFolderName" layoutX="82.0" layoutY="88.0" prefHeight="25.0" prefWidth="178.0" AnchorPane.leftAnchor="81.0" />
+   </children>
+</AnchorPane>

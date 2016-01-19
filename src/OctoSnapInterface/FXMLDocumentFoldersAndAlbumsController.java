@@ -269,7 +269,20 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     
     @FXML
     public void createNewFolderButton(){
-        // TODO implement here
+        try {
+            Stage s = new Stage();
+            Pane myPane;
+            myPane = (Pane) FXMLLoader.load(getClass().getResource("/octosnapinterface/FXMLNewFolder.fxml"));
+            Scene myScene = new Scene(myPane);
+            s.setTitle("Make folder in "+currentFolder);
+            s.setScene(myScene);
+            s.setMinWidth(350);
+            s.setMinHeight(176);
+            s.show();
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     
@@ -633,7 +646,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         selectedPhoto=null;
         nothingSelectedAction();
     }
-    
+ 
     private void refresh(){
         imageViewNumber -= 8;
         if (imageViewNumber < 0) {
