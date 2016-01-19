@@ -56,12 +56,6 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     @FXML
     private MenuItem menuItemOpen;
     @FXML
-    private MenuItem menuItemClose;
-    @FXML
-    private MenuItem menuItemSave;
-    @FXML
-    private MenuItem menuItemQuit;
-    @FXML
     private MenuItem menuItemCopy;
     @FXML
     private MenuItem menuItemPaste;
@@ -194,7 +188,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         if(selectionType==EnumType.FOLDER)
         {
             clipboardFolder = currentFolder;
-            btnPaste.setDisable(false);
+            btnPaste.setDisable(false); menuItemPaste.setDisable(false);
         }
         else
         {
@@ -334,16 +328,20 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             
             //buttons seting
             btnAddToAlbum.setDisable(true);
-            btnOpen.setDisable(true);
-            btnCopy.setDisable(false);
-            btnRename.setDisable(false);
-            btnDelete.setDisable(false);
+            btnOpen.setDisable(true); menuItemOpen.setDisable(true);
+            btnCopy.setDisable(false); menuItemCopy.setDisable(false);
+            btnRename.setDisable(true); menuItemRename.setDisable(true);
+            btnDelete.setDisable(false); menuItemDelete.setDisable(false);
             btnLoadNext.setDisable(false);
             btnLoadPrevious.setDisable(false);
             btnNewFolder.setDisable(false);
         }
-        if(pastePosible())btnPaste.setDisable(false);
-        else btnPaste.setDisable(true);
+        if(pastePosible()){
+            btnPaste.setDisable(false); menuItemPaste.setDisable(false);
+        }
+        else {
+            btnPaste.setDisable(true); menuItemPaste.setDisable(true);
+        }
         
         //labels seting
         labelSelectedObject.setText("Selected folder: " + currentFolder.getName());
@@ -367,11 +365,11 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
             //buttons seting
             btnAddToAlbum.setDisable(true);
-            btnOpen.setDisable(true);
-            btnCopy.setDisable(true);
-            btnPaste.setDisable(true);
-            btnRename.setDisable(false);
-            btnDelete.setDisable(false);
+            btnOpen.setDisable(true); menuItemOpen.setDisable(true);
+            btnCopy.setDisable(true); menuItemCopy.setDisable(true);
+            btnPaste.setDisable(true); menuItemPaste.setDisable(true);
+            btnRename.setDisable(false); menuItemRename.setDisable(false);
+            btnDelete.setDisable(false); menuItemDelete.setDisable(false);
             btnLoadNext.setDisable(false);
             btnLoadPrevious.setDisable(false);
         }
@@ -393,11 +391,11 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             if (destinationAlbum != null) {
                 btnAddToAlbum.setDisable(false);
             }
-            btnOpen.setDisable(false);
-            btnCopy.setDisable(false);
-            btnPaste.setDisable(true);
-            btnRename.setDisable(false);
-            btnDelete.setDisable(false);
+            btnOpen.setDisable(false); menuItemOpen.setDisable(false);
+            btnCopy.setDisable(false); menuItemCopy.setDisable(false);
+            btnPaste.setDisable(true); menuItemPaste.setDisable(true);
+            btnRename.setDisable(true); menuItemRename.setDisable(true);
+            btnDelete.setDisable(false); menuItemDelete.setDisable(false);
         }
         
         //labels seting
@@ -415,11 +413,11 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         //buttons seting
         
         btnAddToAlbum.setDisable(true);
-        btnOpen.setDisable(true);
-        btnCopy.setDisable(true);
-        btnPaste.setDisable(true);
-        btnRename.setDisable(true);
-        btnDelete.setDisable(true);
+        btnOpen.setDisable(true); menuItemOpen.setDisable(true);
+        btnCopy.setDisable(true); menuItemCopy.setDisable(true);
+        btnPaste.setDisable(true); menuItemPaste.setDisable(true);
+        btnRename.setDisable(true); menuItemRename.setDisable(true);
+        btnDelete.setDisable(true); menuItemDelete.setDisable(true);
         btnLoadNext.setDisable(true);
         btnLoadPrevious.setDisable(true);
         btnNewFolder.setDisable(true);
@@ -616,7 +614,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             } else {
                 FileUtils.copyFileToDirectory(clipboardFolder, whereToCopyFolder); //ako je fajl, samo ga nalijepis u odabrani folder
                 fileList.add(clipboardFolder);
-                btnPaste.setDisable(true);
+                btnPaste.setDisable(true); menuItemPaste.setDisable(true);
             }
         }
         refresh();
