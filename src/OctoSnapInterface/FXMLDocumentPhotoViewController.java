@@ -145,6 +145,7 @@ public class FXMLDocumentPhotoViewController implements Initializable {
         stage.setFullScreenExitKeyCombination(KeyCodeCombination.NO_MATCH);
 
         AnchorPane root = new AnchorPane();
+        imageV.fitWidthProperty().bind(stage.widthProperty()); 
 
         root.getChildren().add(imageV);
 
