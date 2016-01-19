@@ -81,7 +81,8 @@ public class serverThread extends Thread {
 
             for (;;) {
                 sleep(1000);
-                if (in.ready()){
+               
+               
                 request = in.readLine();
                 
                 if (request != null) {//onako
@@ -132,7 +133,7 @@ public class serverThread extends Thread {
                 
                 
                 }
-                }
+                
                 
 
             }
