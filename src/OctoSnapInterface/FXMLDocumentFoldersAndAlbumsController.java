@@ -172,7 +172,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     }
     
     public void deletePhotoFromAlbum() {
-        index = listView.getSelectionModel().getSelectedIndex();
+        index = albums.indexOf(currentAlbum);
         Album a = albums.get(index);
         if (selectedPhoto != null) {
             a.deletePhoto(selectedPhoto);
