@@ -45,21 +45,7 @@ import javafx.stage.Stage;
 public class FXMLDocumentPhotoViewController implements Initializable {
 
     @FXML
-    private MenuItem menuItemOpen;
-    @FXML
     private MenuItem menuItemClose;
-    @FXML
-    private MenuItem menuItemSave;
-    @FXML
-    private MenuItem menuItemQuit;
-    @FXML
-    private MenuItem menuItemCopy;
-    @FXML
-    private MenuItem menuItemPaste;
-    @FXML
-    private MenuItem menuItemRename;
-    @FXML
-    private MenuItem menuItemDelete;
     @FXML
     private MenuItem menuItemInfo;
     @FXML
@@ -86,6 +72,12 @@ public class FXMLDocumentPhotoViewController implements Initializable {
     private TilePane tilePaneMainArea;
 
     private ImageView imageViewMainArea;
+    @FXML
+    private MenuItem menuItemRotateLeft;
+    @FXML
+    private MenuItem menuItemRotateRight;
+    @FXML
+    private MenuItem menuItemFullscreen;
 
     /**
      * Initializes the controller class.
@@ -149,7 +141,7 @@ public class FXMLDocumentPhotoViewController implements Initializable {
         imageV.fitWidthProperty().bind(stage.widthProperty());//fit to screen
         imageV.fitHeightProperty().bind(stage.heightProperty());//fit
         imageV.setPreserveRatio(true);
-
+        
         root.getChildren().add(imageV);
 
         //imageV.setLayoutX(root.getWidth() / 2- imageV.getBoundsInParent());

@@ -16,19 +16,15 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem fx:id="menuItemOpen" mnemonicParsing="false" text="Open…" />
-            <MenuItem fx:id="menuItemClose" mnemonicParsing="false" text="Close" />
-            <MenuItem fx:id="menuItemSave" mnemonicParsing="false" text="Save" />
-            <MenuItem fx:id="menuItemQuit" mnemonicParsing="false" text="Quit" />
+            <MenuItem fx:id="menuItemClose" mnemonicParsing="false" onAction="#closePicture" text="Close picture" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem fx:id="menuItemCopy" mnemonicParsing="false" text="Copy" />
-            <MenuItem fx:id="menuItemPaste" mnemonicParsing="false" text="Paste" />
-                  <MenuItem fx:id="menuItemRename" mnemonicParsing="false" text="Rename" />
-            <MenuItem fx:id="menuItemDelete" mnemonicParsing="false" text="Delete" />
-          </items>
+               <items>
+                  <MenuItem fx:id="menuItemRotateLeft" mnemonicParsing="false" onAction="#rotateLeft" text="Rotate left" />
+                  <MenuItem fx:id="menuItemRotateRight" mnemonicParsing="false" onAction="#rotateRight" text="Rotate right" />
+                  <MenuItem fx:id="menuItemFullscreen" mnemonicParsing="false" onAction="#fullscreen" text="Fullscreen" />
+               </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
