@@ -111,7 +111,9 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     private Label labelFullName;
     @FXML
     private Button btnNewFolder;
-
+    @FXML
+    private Button btnCHANGESTATUS;
+    
     ////////////////////////////////////////////////////////////
     File clipboardFolder=null;  //copyFile postavlja pokazivac na sta treba da se kopira, bilo fajl ili folder
     public void copyFile(File selectedFolder) {
@@ -396,6 +398,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (Controller.Client.stanje) labelOnlineStatus.setText("ONLINE"); else labelOnlineStatus.setText("OFFLINE");
         readAlbums();
         listView.setItems(albums);
         listView.setEditable(true);
@@ -577,6 +580,13 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             } catch (Exception e) {
             }
         }
+    }
+
+    @FXML
+    private void CHANGESTATUS(ActionEvent event) {
+        Controller.LOGINController.x.visible();
+     if (Controller.Client.stanje) labelOnlineStatus.setText("ONLINE"); else labelOnlineStatus.setText("OFFLINE");
+    
     }
 
 }
