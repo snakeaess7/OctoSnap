@@ -38,7 +38,7 @@ public void createNewFile(ActionEvent event) {
          Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         
-        File newFolder = new File(stage.getTitle().substring(15)+newFolderName.getText());
+        File newFolder = new File(FXMLDocumentFoldersAndAlbumsController.currentFolder,newFolderName.getText());
         newFolder.mkdir();
         stage.close();
     }
