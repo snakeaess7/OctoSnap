@@ -42,6 +42,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -111,6 +112,27 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     @FXML
     private Button btnNewFolder;
 
+    ////////////////////////////////////////////////////////////
+    File clipboardFolder=null;  //copyFile postavlja pokazivac na sta treba da se kopira, bilo fajl ili folder
+    public void copyFile(File selectedFolder) {
+    clipboardFolder = selectedFolder;
+    System.out.println(clipboardFolder);
+    }
+    
+    public void pasteFile(TreeItem<File> whereToCopy) throws IOException { //daj metodi odabrani TreeItem.
+        File whereToCopyFolder = new File(whereToCopy.getValue().toString());
+        if(clipboardFolder!=null) {
+            if(clipboardFolder.isDirectory()) { //ako kopiras folder, onda trebas osvjeziti treeView, pa zato koristim TreeItem
+    FileUtils.copyDirectoryToDirectory(clipboardFolder, whereToCopyFolder);
+        TreeItem<File> pastedTreeItem = new TreeItem<File>(clipboardFolder);
+                whereToCopy.getChildren().add(pastedTreeItem);
+                prosiri(pastedTreeItem);
+            }
+            else
+                FileUtils.copyFileToDirectory(clipboardFolder, whereToCopyFolder); //ako je fajl, samo ga nalijepis u odabrani folder
+    }}
+    ////////////////////////////////////////////////////////////
+    
     //album promjenljive
     public static ObservableList<Album> albums = FXCollections.observableArrayList();
     private Album currentAlbum = null;
