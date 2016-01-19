@@ -156,7 +156,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     
     @FXML
     public void addToAlbum() {
-        index = choiceBoxChosenAlbum.getSelectionModel().getSelectedIndex();
+        index = albums.indexOf(destinationAlbum);
         Album a = albums.get(index);
         if (selectedPhoto != null) {
         a.addPhoto(selectedPhoto);
