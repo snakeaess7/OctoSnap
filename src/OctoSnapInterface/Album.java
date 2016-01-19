@@ -139,7 +139,7 @@ public class Album implements Serializable {
     }
 
     public String[] getPhotosString() {
-        return (String[]) photos.toArray();
+        return photos.toArray(new String[photos.size()]);
     }
 
     public Set<String> getPhotos() {
