@@ -158,12 +158,16 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     
     @FXML
     public void addToAlbum() {
-        index = albums.indexOf(destinationAlbum);
-        Album a = albums.get(index);
-        if (selectedPhoto != null) {
-        a.addPhoto(selectedPhoto);
-        a.save();
-        albums.set(index, a);
+        if (destinationAlbum != null) {
+            index = albums.indexOf(destinationAlbum);
+            Album a = albums.get(index);
+            if (selectedPhoto != null) {
+                a.addPhoto(selectedPhoto);
+                a.save();
+                albums.set(index, a);
+
+            }
+
         }
     }
 
