@@ -158,7 +158,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     
     @FXML
     public void addToAlbum() {
-        index = choiceBoxChosenAlbum.getSelectionModel().getSelectedIndex();
+        index = albums.indexOf(destinationAlbum);
         Album a = albums.get(index);
         if (selectedPhoto != null) {
         a.addPhoto(selectedPhoto);
@@ -435,6 +435,15 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
                 currentAlbum = selectedAlbum;
                 
                 albumSelectedAction();
+
+            }
+        });
+        
+        choiceBoxChosenAlbum.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Album>() {
+            @Override
+            public void changed(ObservableValue<? extends Album> paramObservableValue, Album paramT1, Album selectedAlbum) {
+
+                destinationAlbum=selectedAlbum;
 
             }
         });
