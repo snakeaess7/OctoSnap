@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="octosnapinterface.FormaNoviAlbumController">
+   <children>
+      <Label layoutX="74.0" layoutY="60.0" text="Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="125.0" text="Description">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nameTF" layoutX="175.0" layoutY="56.0" prefHeight="26.0" prefWidth="250.0" promptText="Give a name to album" />
+      <TextArea fx:id="descriptionTA" layoutX="175.0" layoutY="125.0" prefHeight="164.0" prefWidth="250.0" promptText="Give a detailed account of album" />
+      <Button fx:id="saveButton" layoutX="175.0" layoutY="316.0" mnemonicParsing="false" onAction="#save" text="Save" />
+      <Button fx:id="discardButton" layoutX="367.0" layoutY="316.0" mnemonicParsing="false" onAction="#discard" text="Discard" />
+      <Button fx:id="clearButton" layoutX="271.0" layoutY="316.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
+   </children>
+</AnchorPane>

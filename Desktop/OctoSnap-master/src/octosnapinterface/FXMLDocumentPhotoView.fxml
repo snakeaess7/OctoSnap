@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="octosnapinterface.FXMLDocumentPhotoViewController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem fx:id="menuItemOpen" mnemonicParsing="false" text="Open…" />
+            <MenuItem fx:id="menuItemClose" mnemonicParsing="false" text="Close" />
+            <MenuItem fx:id="menuItemSave" mnemonicParsing="false" text="Save" />
+            <MenuItem fx:id="menuItemQuit" mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem fx:id="menuItemCopy" mnemonicParsing="false" text="Copy" />
+            <MenuItem fx:id="menuItemPaste" mnemonicParsing="false" text="Paste" />
+                  <MenuItem fx:id="menuItemRename" mnemonicParsing="false" text="Rename" />
+            <MenuItem fx:id="menuItemDelete" mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem fx:id="menuItemInfo" mnemonicParsing="false" text="Info" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <AnchorPane minHeight="0.0" VBox.vgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="647.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <Separator prefWidth="200.0" />
+    <HBox id="HBox" alignment="CENTER_LEFT" minHeight="-Infinity" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label fx:id="labelFullName" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="nothing selected" HBox.hgrow="ALWAYS" />
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+      <Separator prefWidth="200.0" />
+      <HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Pane minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <GridPane layoutX="56.0" minWidth="-Infinity" prefHeight="100.0" prefWidth="199.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.0" minWidth="10.0" prefWidth="62.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="83.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="54.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="60.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="btnSendScreenshot" mnemonicParsing="false" prefHeight="30.0" prefWidth="142.0" text="Send a Screenshot" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Label text="Status:" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+                        <Label fx:id="labelOnlineStatus" text="Ofline" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="310.0" />
+               </children>
+            </Pane>
+            <Pane minWidth="-Infinity" prefWidth="250.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <GridPane layoutX="56.0" prefHeight="100.0" prefWidth="199.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="135.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="64.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <Label text="Add to album:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ChoiceBox fx:id="choiceBoxChosenAlbum" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnAddToAlbum" mnemonicParsing="false" prefHeight="39.0" prefWidth="44.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+                     </children>
+                  </GridPane>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="310.0" />
+               </children>
+            </Pane>
+            <Pane minWidth="-Infinity" prefWidth="250.0">
+               <children>
+                  <GridPane layoutX="7.0" prefHeight="100.0" prefWidth="236.0">
+                     <children>
+                        <Button fx:id="btnRotateLeft" mnemonicParsing="false" text="Rotate left" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnRotateRight" mnemonicParsing="false" text="Rotate right" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="109.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="108.0" />
+                     </columnConstraints>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="250.0" />
+               </children>
+            </Pane>
+            <Pane minWidth="-Infinity" prefWidth="250.0">
+               <children>
+                  <GridPane layoutX="44.0" prefHeight="100.0" prefWidth="176.0">
+                     <children>
+                        <Button fx:id="btnFullscreen" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Fullscreen" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnClosePicture" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Close Picture" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#8a8a8a0f" height="100.0" scaleX="0.9" scaleY="0.95" stroke="#000000a0" strokeType="INSIDE" width="250.0" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+  </children>
+</VBox>
