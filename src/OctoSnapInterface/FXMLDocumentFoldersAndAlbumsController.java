@@ -501,6 +501,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             public void changed(ObservableValue<? extends Album> paramObservableValue, Album paramT1, Album selectedAlbum) {
 
                 destinationAlbum=selectedAlbum;
+                
+                if(selectionType==EnumType.PHOTO)btnAddToAlbum.setDisable(false);
 
             }
         });
