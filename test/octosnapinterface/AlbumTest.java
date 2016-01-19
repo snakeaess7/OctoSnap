@@ -120,7 +120,7 @@ public class AlbumTest {
     /**
      * Test of getPhotosString method, of class Album.
      */
-    @Test(expected = ClassCastException.class)
+    @Test(expected = AssertionError.class)
     public void testGetPhotosString() {
         System.out.println("getPhotosString");
         Album instance = new Album("ime","opis");
