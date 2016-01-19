@@ -143,7 +143,8 @@ public class IMGSENDController implements Initializable {
             if (LOGINController.x.stanje == false) {
                 TEXT.setText("NOT CONNECTED");
             }
-            UserList.getItems().addAll(Collections.list(LOGGEDIN.keys()));
+            if (LOGGEDIN!=null){
+            UserList.getItems().addAll(Collections.list(LOGGEDIN.keys()));}
 
             // UserList.getItems().addAll(serverThread.serverThread.ASKEY.values()); //To change body of generated methods, choose Tools | Templates.
         } catch (ClassNotFoundException ex) {

@@ -93,6 +93,7 @@ public class serverThread extends Thread {
 
                     if (req[0].matches("0")) {
                         name = new String(req[2]);
+                        System.out.println("Vidljiva prijava korisnika " + name + "\n");
                         String msg = login(req);
                         System.out.println(msg + "\n");
                         LOGGEDIN.put(req[2], s.getInetAddress().toString());
@@ -101,6 +102,7 @@ public class serverThread extends Thread {
 
                     } else if (req[0].matches("1")) {
                         name = new String(req[2]);
+                        System.out.println("Nevidljiva prijava korisnika " + name + "\n");
                         String msg = login(req);
                         System.out.println(msg + "\n");
                         out.writeObject(msg);
@@ -114,7 +116,22 @@ public class serverThread extends Thread {
                        
                        
 
-                    }}
+                    }else if (req[0].matches("3")) {
+                        if (req[1].equals("0")) {
+                        LOGGEDIN.put(req[2], s.getInetAddress().toString());
+                        System.out.println("Korisnik "+req[2]+"je postao vidljiv \n");}
+                        else if (req[1].equals("1")){
+                            LOGGEDIN.remove(req[2]);
+                            System.out.println("Korisnik "+req[2]+" je postao nevidljiv \n");
+                            
+                        }
+                        
+                        
+                        
+                    }
+                
+                
+                }
                 }
                 
 
@@ -153,7 +170,7 @@ public class serverThread extends Thread {
     }
 
     private String login(String[] req) throws FileNotFoundException {
-        System.out.println("serverThread.serverThread.login() " + req[1] + "\n");
+        //System.out.println("serverThread.serverThread.login() " + req[1]);
         if (ASKEY.containsKey(req[1])) {
             if (ASKEY.containsValue(req[2])) {
                 return "Prijava uspjesna!";

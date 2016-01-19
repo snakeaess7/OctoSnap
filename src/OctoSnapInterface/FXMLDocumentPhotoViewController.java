@@ -11,11 +11,13 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,7 +26,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -78,64 +85,107 @@ public class FXMLDocumentPhotoViewController implements Initializable {
     @FXML
     private TilePane tilePaneMainArea;
 
+    private ImageView imageViewMainArea;
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        ImageView imageViewMainArea = new ImageView(FXMLDocumentFoldersAndAlbumsController.selectedPhoto);
+
+        imageViewMainArea = new ImageView(FXMLDocumentFoldersAndAlbumsController.selectedPhoto);
         imageViewMainArea.setPreserveRatio(true);
         imageViewMainArea.setSmooth(true);
-        
+
         scrollPaneMainArea.boundsInParentProperty().addListener(new ChangeListener<Bounds>() {
 
             @Override
             public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
-                double w1=newValue.getWidth();
-                double h1=newValue.getHeight();
+                double w1 = newValue.getWidth();
+                double h1 = newValue.getHeight();
                 imageViewMainArea.setFitWidth(w1);
                 imageViewMainArea.setFitHeight(h1);
                 double w2 = imageViewMainArea.getBoundsInParent().getWidth();
                 double h2 = imageViewMainArea.getBoundsInParent().getHeight();
-                if(w1 != w2){
-                    double leftInset=(w1-w2)/2;
-                    tilePaneMainArea.setPadding(new Insets(0,0,0,leftInset));
+                if (w1 != w2) {
+                    double leftInset = (w1 - w2) / 2;
+                    tilePaneMainArea.setPadding(new Insets(0, 0, 0, leftInset));
                 }
-                if(h1 != h2){
-                    double topInset=(h1-h2)/2;
-                    tilePaneMainArea.setPadding(new Insets(topInset,0,0,0));
+                if (h1 != h2) {
+                    double topInset = (h1 - h2) / 2;
+                    tilePaneMainArea.setPadding(new Insets(topInset, 0, 0, 0));
                 }
             }
         });
-        
+
         tilePaneMainArea.getChildren().add(imageViewMainArea);
-        
-    }    
+
+    }
 
     @FXML
     private void rotateLeft(ActionEvent event) {
+        imageViewMainArea.setRotate(imageViewMainArea.getRotate() - 90);
     }
 
     @FXML
     private void rotateRight(ActionEvent event) {
+        imageViewMainArea.setRotate(imageViewMainArea.getRotate() + 90);
     }
 
     @FXML
     private void fullscreen(ActionEvent event) {
+        Stage stage = new Stage();
+        stage.setFullScreen(true);
+
+        ImageView imageV = new ImageView(FXMLDocumentFoldersAndAlbumsController.selectedPhoto);
+        //stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(KeyCodeCombination.NO_MATCH);
+
+        AnchorPane root = new AnchorPane();
+
+        root.getChildren().add(imageV);
+
+        //imageV.setLayoutX(root.getWidth() / 2- imageV.getBoundsInParent());
+        //imageV.setLayoutY(root.getHeight() / 2- imageV.getBoundsInParent().get);
+        Scene scene = new Scene(root);
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(final KeyEvent keyEvent) {
+
+                if (keyEvent.getCode() == KeyCode.ESCAPE) {
+
+                    stage.close();
+
+                    //Stop letting it do anything else
+                    keyEvent.consume();
+
+                }
+
+            }
+
+        });
+
+        stage.setScene(scene);
+        //stage.centerOnScreen();
+        imageV.autosize();
+
+        stage.show();
     }
 
     @FXML
     private void closePicture(ActionEvent event) throws IOException {
         Stage stage;
         stage = (Stage) btnClosePicture.getScene().getWindow();
-        
+
         //create a new scene with root and set the stage
         Scene scene = FXMLDocumentFoldersAndAlbumsController.originalScene;
         stage.setScene(scene);
         stage.show();
     }
-    
+
 }

@@ -44,7 +44,7 @@ public class Client extends Thread {
     public String name = "test";
     public static Object SLIKA;
     private Socket sock;
-    public boolean stanje;
+    public static boolean stanje;
     private ObjectInputStream in;
     private PrintWriter out;
     public static ConcurrentHashMap<String, String> LOGGEDIN;
@@ -131,6 +131,19 @@ public class Client extends Thread {
 
         return "Greska pri unosu!";
     }
+    
+    
+    
+    public void visible(){
+        stanje=!stanje;
+        
+        String vid;
+        if (stanje) {vid="0";}
+        else {vid="1";}
+        out.println("3:"+vid+":"+name);
+        out.flush();
+        System.out.println("3:"+vid+":"+name);
+    }
 
     public void send() throws ClassNotFoundException {
         {
@@ -156,7 +169,7 @@ public class Client extends Thread {
 
 
             } else {
-                System.out.println("Niste ulogovani!");
+                System.out.println("Niste ulogovani(vidljivi)!");
             }
 
         }
