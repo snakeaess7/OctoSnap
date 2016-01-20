@@ -46,7 +46,6 @@ import java.io.OutputStream;
 import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
 
-
 /**
  * FXML Controller class
  *
@@ -65,35 +64,36 @@ public class IMGSENDController implements Initializable {
 
     @FXML
     private void send() {
-        if (new File("Screenshot.jpg").exists()){
-        try {
-            //System.out.println(UserList.getSelectionModel().getSelectedItem());
-            String IPSEND = LOGGEDIN.get(UserList.getSelectionModel().getSelectedItem()).replace("/", "");
-            System.out.println("Šaljem na:"+IPSEND);
+        if ((new File("Screenshot.jpg").exists() | (octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG))) {
+            try {
+                //System.out.println(UserList.getSelectionModel().getSelectedItem());
+                String IPSEND = LOGGEDIN.get(UserList.getSelectionModel().getSelectedItem()).replace("/", "");
+                System.out.println("Šaljem na:" + IPSEND);
 
-            Socket sockusr = new Socket(IPSEND, PORT + 1);
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                            sockusr.getInputStream()));
-          
-            ObjectOutputStream out = new ObjectOutputStream(
-                    sockusr.getOutputStream());
-            //System.out.println(LOGINController.name);
-            out.writeObject(LOGINController.name);
-           
-            
-           DataInputStream in2;
-           if ((octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG)){
-           in2 = new DataInputStream( new FileInputStream(octosnapinterface.FXMLDocumentFoldersAndAlbumsController.selectedPhoto.getUrl()));
-           }
-           else{
-           in2 = new DataInputStream( new FileInputStream("Screenshot.jpg"));}
-           copyStream(in2, new DataOutputStream(sockusr.getOutputStream()));
-           in2.close();
-           sockusr.getOutputStream().close();
-         
+                Socket sockusr = new Socket(IPSEND, PORT + 1);
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(
+                                sockusr.getInputStream()));
 
-/*
+                ObjectOutputStream out = new ObjectOutputStream(
+                        sockusr.getOutputStream());
+                //System.out.println(LOGINController.name);
+                out.writeObject(LOGINController.name);
+
+                DataInputStream in2;
+                if ((octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG)) {
+                    System.out.println(octosnapinterface.FXMLDocumentFoldersAndAlbumsController.selectedPhoto.getUrl().substring(5));
+                    in2 = new DataInputStream(new FileInputStream(octosnapinterface.FXMLDocumentFoldersAndAlbumsController.selectedPhoto.getUrl().substring(5)));
+                    
+                } else {
+                    in2 = new DataInputStream(new FileInputStream("Screenshot.jpg"));
+                }
+                copyStream(in2, new DataOutputStream(sockusr.getOutputStream()));
+                in2.close();
+                sockusr.getOutputStream().close();
+
+
+                /*
             int count;
             byte[] buffer = new byte[1024];
 
@@ -104,9 +104,9 @@ public class IMGSENDController implements Initializable {
                 out.flush();
             }
             in2.close();*/
-            //out2.close();
-            //  ImageIO.write(LOGINController.SCRR, "JPG", out);
-            /* ByteArrayOutputStream bScrn = new ByteArrayOutputStream();
+                //out2.close();
+                //  ImageIO.write(LOGINController.SCRR, "JPG", out);
+                /* ByteArrayOutputStream bScrn = new ByteArrayOutputStream();
             ImageIO.write(LOGINController.SCRR, "JPG", bScrn);
             byte imgBytes[] = bScrn.toByteArray();
 
@@ -130,29 +130,42 @@ public class IMGSENDController implements Initializable {
                 }
             }
             else TEXT.setText("Timeout");*/
-            System.out.println("SENT");
-        } catch (IOException ex) {
-            TEXT.setText("KORISNIK SE DISKONEKTOVAO");
+               if (octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG) octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG=!(octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG);
+ 
+                System.out.println("SENT");
+                
+                
+                
+            } catch (IOException ex) {
+                TEXT.setText("KORISNIK SE DISKONEKTOVAO");
+            }
+        } else {
+            TEXT.setText("Slika ne postoji");
         }
-        }else TEXT.setText("Slika ne postoji");
 
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            if ((octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG)){ScrSht.setImage(octosnapinterface.FXMLDocumentFoldersAndAlbumsController.selectedPhoto);
-            }else{
-            
-            ScrSht.setImage(LOGINController.SCR);}
-            if (LOGINController.x!=null){
-            LOGINController.x.send();
-            if (LOGINController.x.stanje == false) {
-                TEXT.setText("INVISIBLE");
-                LOGGEDIN.clear();
-            }}else TEXT.setText("NOT LOGGED IN");
-            if (LOGGEDIN!=null){
-            UserList.getItems().addAll(Collections.list(LOGGEDIN.keys()));}
+            if ((octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG)) {
+                ScrSht.setImage(octosnapinterface.FXMLDocumentFoldersAndAlbumsController.selectedPhoto);
+            } else {
+
+                ScrSht.setImage(LOGINController.SCR);
+            }
+            if (LOGINController.x != null) {
+                LOGINController.x.send();
+                if (LOGINController.x.stanje == false) {
+                    TEXT.setText("INVISIBLE");
+                    LOGGEDIN.clear();
+                }
+            } else {
+                TEXT.setText("NOT LOGGED IN");
+            }
+            if (LOGGEDIN != null) {
+                UserList.getItems().addAll(Collections.list(LOGGEDIN.keys()));
+            }
 
             // UserList.getItems().addAll(serverThread.serverThread.ASKEY.values()); //To change body of generated methods, choose Tools | Templates.
         } catch (ClassNotFoundException ex) {
@@ -161,22 +174,18 @@ public class IMGSENDController implements Initializable {
     }
 
     public static void copyStream(DataInputStream input, DataOutputStream output)
-    throws IOException
-{
-     // Može baferovano, ali za svaki slučaj bajt po bajt.
-    //int bytesRead;
-    
-    int i;
-    while ((i=input.read()) != -1)
-        
-    {
-        
-        output.write(i);
-        output.flush();
+            throws IOException {
+        // Može baferovano, ali za svaki slučaj bajt po bajt.
+        //int bytesRead;
+
+        int i;
+        while ((i = input.read()) != -1) {
+
+            output.write(i);
+            output.flush();
+        }
+
+        //System.out.println("Controller.IMGSENDController.copyStream()");
     }
-    
-    //System.out.println("Controller.IMGSENDController.copyStream()");
-    
-}
-    
+
 }

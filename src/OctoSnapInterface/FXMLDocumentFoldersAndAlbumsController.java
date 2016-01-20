@@ -68,7 +68,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     @FXML
     private Button btnSendScreenshot;
     @FXML
-    private Label labelOnlineStatus;
+    public Label labelOnlineStatus;
     @FXML
     private ChoiceBox<Album> choiceBoxChosenAlbum;
     @FXML
@@ -407,8 +407,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     
     private void nothingSelectedAction(){
         //actions
-       tilepane.getChildren().clear();
-        
+               tilepane.getChildren().clear();
+       
         //type seting
         selectionType=null;
         
@@ -423,6 +423,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         btnLoadNext.setDisable(true);
         btnLoadPrevious.setDisable(true);
         btnNewFolder.setDisable(true);
+       
         
         //labels seting
         labelSelectedObject.setText("nothing selected");

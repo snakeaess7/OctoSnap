@@ -74,7 +74,7 @@
                       <RowConstraints maxHeight="60.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="btnSendScreenshot" mnemonicParsing="false" onAction="#sendSCR" prefHeight="30.0" prefWidth="142.0" text="Send a Screenshot" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnSendScreenshot" mnemonicParsing="false" onAction="#sendSCR" prefHeight="30.0" prefWidth="142.0" text="Send this picture" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Label text="Status:" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
                         <Label fx:id="labelOnlineStatus" text="Ofline" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>

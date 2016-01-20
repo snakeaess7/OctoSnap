@@ -91,6 +91,8 @@ public class FXMLDocumentPhotoViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+     labelOnlineStatus.setText(FXMLDocumentFoldersAndAlbumsController.THIS.labelOnlineStatus.getText());
+        
      choiceBoxChosenAlbum.setItems(albums);
      
      choiceBoxChosenAlbum.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Album>() {
@@ -206,7 +208,7 @@ public class FXMLDocumentPhotoViewController implements Initializable {
     private void sendSCR(ActionEvent event) {
         SNDIMG=true;
         FXMLDocumentFoldersAndAlbumsController.THIS.screenshot();
-        SNDIMG=false;
+       
     }
 
     @FXML
