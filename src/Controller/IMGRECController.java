@@ -79,9 +79,10 @@ public class IMGRECController implements Initializable {
             name.setText(ink);
 
             //  p=ImageIO.read(ImageIO.createImageInputStream(in));
-           
-            FileOutputStream fos = new FileOutputStream("SSREC.jpg");
+           File rec=new File("SSREC.jpg");
+            FileOutputStream fos = new FileOutputStream(rec);
             DataOutputStream fout = new DataOutputStream(fos);
+            rec.deleteOnExit();
            
         
            
