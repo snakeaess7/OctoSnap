@@ -119,7 +119,7 @@ public class LOGINController implements Initializable {
             if(stat.equals("1"))Client.stanje=false;
             
             try {
-                replaceSceneContent("/OctoSnapInterface/FXMLDocumentFoldersAndAlbums.fxml");
+                replaceSceneContent("/octosnapinterface/FXMLDocumentFoldersAndAlbums.fxml");
             } catch (Exception ex) {
                 Logger.getLogger(LOGINController.class.getName()).log(Level.SEVERE, null, ex);
             }
