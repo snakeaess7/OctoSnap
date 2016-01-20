@@ -27,6 +27,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -109,7 +113,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     private Button btnNewFolder;
     @FXML
     private Button btnCHANGESTATUS;
-    private ImageView selectedImageView;
+    @FXML
+    private Button btnShowChart;
     
     //album promjenljive
     public static ObservableList<Album> albums = FXCollections.observableArrayList();
@@ -129,6 +134,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     public static Album destinationAlbum=null;
     private EnumType mode=EnumType.FOLDER;
     private EnumType selectionType;
+    private ImageView selectedImageView;
     
     public static Scene originalScene;
 
@@ -374,6 +380,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             btnDelete.setDisable(false); menuItemDelete.setDisable(false);
             btnLoadNext.setDisable(false);
             btnLoadPrevious.setDisable(false);
+            btnShowChart.setDisable(false);
         }
         
         //labels seting
@@ -423,7 +430,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
         btnLoadNext.setDisable(true);
         btnLoadPrevious.setDisable(true);
         btnNewFolder.setDisable(true);
-       
+        btnShowChart.setDisable(true);
         
         //labels seting
         labelSelectedObject.setText("nothing selected");
@@ -751,6 +758,45 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
           stage.show();
         
         
+    }
+
+    @FXML
+    private void showChart(ActionEvent event) {
+        try {
+            Stage s = new Stage();
+            AnchorPane root = new AnchorPane();
+            Scene myScene = new Scene(root);
+            s.setTitle(currentAlbum.getName()+" views per photo chart");
+            
+            
+            
+            final NumberAxis xAxis = new NumberAxis();
+            final CategoryAxis yAxis = new CategoryAxis();
+            final BarChart<Number, String> bc = new BarChart<Number, String>(xAxis, yAxis);
+            xAxis.setLabel("Views");
+            xAxis.setTickLabelRotation(90);
+            yAxis.setLabel("Photos");
+
+            
+            //uraditi u for petlji!
+            XYChart.Series series = new XYChart.Series();
+            series.getData().add(new XYChart.Data(25601.34, "austria"));
+            series.getData().add(new XYChart.Data(20148.82, "brazil"));
+            series.getData().add(new XYChart.Data(10000, "france"));
+            series.getData().add(new XYChart.Data(35407.15, "italy"));
+            series.getData().add(new XYChart.Data(12000, "usa"));
+
+
+            bc.getData().add(series);
+            root.getChildren().add(bc);
+            
+            s.setScene(myScene);
+            s.show();
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
