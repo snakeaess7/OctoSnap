@@ -64,6 +64,8 @@ public class Album implements Serializable {
      *
      */
     private Set<String> photos;
+    
+    public HashMap<String,Integer> count;
 
     /**
      *
@@ -93,6 +95,7 @@ public class Album implements Serializable {
      */
     public boolean addPhoto(Photo p) {
         if (p != null) {
+            count.put(p.getUrl(), 0);
             return (photos.add(p.getUrl()));
         }
         return false;
@@ -103,6 +106,7 @@ public class Album implements Serializable {
      * @return
      */
     public boolean deletePhoto(Photo p) {
+        count.remove(p.getUrl());
         return (photos.remove(p.getUrl()));
     }
 
