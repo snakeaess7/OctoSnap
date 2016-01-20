@@ -795,6 +795,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             final BarChart<Number, String> bc = new BarChart<Number, String>(xAxis, yAxis);
             xAxis.setLabel("Views");
             xAxis.setTickLabelRotation(90);
+            xAxis.setMinorTickVisible(false);
+            xAxis.setTickUnit(2);
             yAxis.setLabel("Photos");
 
             
@@ -803,7 +805,12 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             
             
              for (String each : currentAlbum.count.keySet()) {
-                series.getData().add(new XYChart.Data(currentAlbum.count.get(each),each));
+                 String ime;
+                 if(each.length()<16)
+                     ime=each;
+                 else
+                     ime=each.substring(0, 16)+"...";
+                series.getData().add(new XYChart.Data(currentAlbum.count.get(each),ime));
             }
             
             
@@ -816,6 +823,8 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
             bc.getData().add(series);
             bc.setLegendVisible(false);
+            bc.setHorizontalZeroLineVisible(false);
+            
             root.getChildren().add(bc);
             
             s.setScene(myScene);
