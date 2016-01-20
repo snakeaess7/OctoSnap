@@ -808,6 +808,7 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
 
             bc.getData().add(series);
+            bc.setLegendVisible(false);
             root.getChildren().add(bc);
             
             s.setScene(myScene);
