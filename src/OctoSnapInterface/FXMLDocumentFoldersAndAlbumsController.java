@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -164,6 +165,15 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
 
     @FXML
     private void open() throws IOException {
+        
+        if(mode==EnumType.ALBUM){ 
+        String path=selectedPhoto.getUrl();
+        Integer currentvalue=(Integer)currentAlbum.count.get(path);
+            
+          currentAlbum.count.replace(path,(currentvalue + 1));
+            System.out.println(currentAlbum.count);
+            currentAlbum.save();
+        }
         Stage stage;
         Parent root;
         //get reference to the button's stage         
@@ -722,6 +732,16 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
                 Album a = null;
                 a = (Album) in.readObject();
                 if (a != null) {
+                    
+                      if (a.count==null){a.count=new HashMap<>();}
+                      if (a.count.isEmpty())
+                      { for(String ph:a.getPhotos()){
+                          a.count.put(ph, 0);
+                                  }
+                      a.save();
+                                  
+                                  }
+                    
                     albums.add(a);
                 }
                 in.close();

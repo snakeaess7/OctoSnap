@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
+import javax.print.DocFlavor;
 
 /**
  *
@@ -37,8 +38,10 @@ public class Album implements Serializable {
         } else {
             this.description = "";
         }
-
+       
         this.photos = new HashSet<>();
+        this.count= new HashMap<>();        
+        
     }
 
     public String getName() {
