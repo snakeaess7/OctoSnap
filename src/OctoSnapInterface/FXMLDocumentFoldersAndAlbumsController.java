@@ -800,11 +800,18 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
             
             //uraditi u for petlji!
             XYChart.Series series = new XYChart.Series();
-            series.getData().add(new XYChart.Data(25601.34, "austria"));
+            
+            
+             for (String each : currentAlbum.count.keySet()) {
+                series.getData().add(new XYChart.Data(currentAlbum.count.get(each),each));
+            }
+            
+            
+            /*series.getData().add(new XYChart.Data(25601.34, "austria"));
             series.getData().add(new XYChart.Data(20148.82, "brazil"));
             series.getData().add(new XYChart.Data(10000, "france"));
             series.getData().add(new XYChart.Data(35407.15, "italy"));
-            series.getData().add(new XYChart.Data(12000, "usa"));
+            series.getData().add(new XYChart.Data(12000, "usa"));*/
 
 
             bc.getData().add(series);
