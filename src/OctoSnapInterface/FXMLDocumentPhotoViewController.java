@@ -80,6 +80,8 @@ public class FXMLDocumentPhotoViewController implements Initializable {
     private MenuItem menuItemRotateRight;
     @FXML
     private MenuItem menuItemFullscreen;
+    
+    public static boolean SNDIMG=false;
 
     /**
      * Initializes the controller class.
@@ -202,7 +204,9 @@ public class FXMLDocumentPhotoViewController implements Initializable {
 
     @FXML
     private void sendSCR(ActionEvent event) {
+        SNDIMG=true;
         FXMLDocumentFoldersAndAlbumsController.THIS.screenshot();
+        SNDIMG=false;
     }
 
     @FXML

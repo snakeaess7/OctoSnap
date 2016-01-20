@@ -82,9 +82,12 @@ public class IMGSENDController implements Initializable {
             out.writeObject(LOGINController.name);
            
             
-            
-            
-           DataInputStream in2 = new DataInputStream( new FileInputStream("Screenshot.jpg"));
+           DataInputStream in2;
+           if ((octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG)){
+           in2 = new DataInputStream( new FileInputStream(octosnapinterface.FXMLDocumentFoldersAndAlbumsController.selectedPhoto.getUrl()));
+           }
+           else{
+           in2 = new DataInputStream( new FileInputStream("Screenshot.jpg"));}
            copyStream(in2, new DataOutputStream(sockusr.getOutputStream()));
            in2.close();
            sockusr.getOutputStream().close();
@@ -138,7 +141,10 @@ public class IMGSENDController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            ScrSht.setImage(LOGINController.SCR);
+            if ((octosnapinterface.FXMLDocumentPhotoViewController.SNDIMG)){ScrSht.setImage(octosnapinterface.FXMLDocumentFoldersAndAlbumsController.selectedPhoto);
+            }else{
+            
+            ScrSht.setImage(LOGINController.SCR);}
             if (LOGINController.x!=null){
             LOGINController.x.send();
             if (LOGINController.x.stanje == false) {
