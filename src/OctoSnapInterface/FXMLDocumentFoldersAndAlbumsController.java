@@ -173,10 +173,10 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
     private void open() throws IOException {
         
         if(mode==EnumType.ALBUM){ 
-        String path=selectedPhoto.getUrl();
-        Integer currentvalue=(Integer)currentAlbum.count.get(path);
+        String name=selectedPhoto.getName();
+        Integer currentvalue=(Integer)currentAlbum.count.get(name);
             
-          currentAlbum.count.replace(path,(currentvalue + 1));
+          currentAlbum.count.replace(name,(currentvalue + 1));
             System.out.println(currentAlbum.count);
             currentAlbum.save();
         }
@@ -740,14 +740,14 @@ public class FXMLDocumentFoldersAndAlbumsController implements Initializable {
                 a = (Album) in.readObject();
                 if (a != null) {
                     
-                      if (a.count==null){a.count=new HashMap<>();}
+                     /* if (a.count==null){a.count=new HashMap<>();}
                       if (a.count.isEmpty())
                       { for(String ph:a.getPhotos()){
-                          a.count.put(ph, 0);
+                          a.count.put(ph, 0)
                                   }
                       a.save();
                                   
-                                  }
+                                  }*/
                     
                     albums.add(a);
                 }
